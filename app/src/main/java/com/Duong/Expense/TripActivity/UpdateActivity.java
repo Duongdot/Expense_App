@@ -1,113 +1,147 @@
-//package com.Duong.Expense.TripActivity;
-//
-//import android.content.DialogInterface;
-//import android.content.Intent;
-//import android.os.Bundle;
-//import android.view.View;
-//import android.widget.Button;
-//import android.widget.EditText;
-//import android.widget.ImageView;
-//import android.widget.RadioButton;
-//import android.widget.RadioGroup;
-//import android.widget.TextView;
-//import android.widget.Toast;
-//
-//import androidx.appcompat.app.ActionBar;
-//import androidx.appcompat.app.AlertDialog;
-//import androidx.appcompat.app.AppCompatActivity;
-//
-//import com.Duong.Expense.Database.MyDatabaseHelper;
-//import com.Duong.Expense.Object.Trip;
-//import com.Duong.Expense.R;
-//
-//import java.util.Calendar;
-//
-//
-//public class UpdateActivity extends AppCompatActivity {
-//
-//    ImageView btnBack;
-//    TextView actionBarText;
-//    Calendar calendar;
-//    EditText tripName, tripDestination, dateFrom, dateTo, description;
-//    Trip selectedTrip;
-//    RadioGroup radioGroup;
-//    RadioButton rdYes, rdNo, selectedRadioButton;
-//    Button btnSave;
-//    Button update_button, delete_button;
-//
-//    Trip selectedTrip;
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_update);
-//
-//        title_input = findViewById(R.id.title_input2);
-//        author_input = findViewById(R.id.author_input2);
-//        pages_input = findViewById(R.id.pages_input2);
-//        update_button = findViewById(R.id.update_button);
-//        delete_button = findViewById(R.id.delete_button);
-//
-//        getAndDisplayInfo();
-//
-//        update_button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                MyDatabaseHelper myDB = new MyDatabaseHelper(UpdateActivity.this);
-//
-//                selectedTrip.setTitle(title_input.getText().toString().trim());
-//                selectedTrip.setAuthor(author_input.getText().toString().trim());
-//                selectedTrip.setPages(Integer.valueOf(pages_input.getText().toString().trim()));
-//                long result = myDB.update(selectedTrip);
-//            }
+package com.Duong.Expense.TripActivity;
+
+import android.app.DatePickerDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.Duong.Expense.Database.MyDatabaseHelper;
+import com.Duong.Expense.Object.Trip;
+import com.Duong.Expense.R;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
+
+public class UpdateActivity extends AppCompatActivity {
+
+    ImageView btnBack;
+    TextView actionBarText;
+    Calendar calendar;
+    EditText tripName, tripDestination, dateFrom, dateTo, description;
+    Trip selectedTrip;
+    RadioGroup radioGroup;
+    RadioButton rdYes, rdNo, selectedRadioButton;
+    Button btnSave;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_update);
+
+        tripName = findViewById(R.id.TripName);
+        tripDestination = findViewById(R.id.TripDestination);
+        description = findViewById(R.id.TripDescription);
+        dateFrom = findViewById(R.id.dateFrom);
+        dateTo = findViewById(R.id.dateEnd);
+        rdYes = findViewById(R.id.radioYes);
+        rdNo = findViewById(R.id.radioNo);
+        btnSave = findViewById(R.id.save_button);
+
+        getAndDisplayInfo();
+
+        calendar = Calendar.getInstance();
+
+
+        DatePickerDialog.OnDateSetListener datePickerFrom = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                updateCalendar();
+            }
+            private void updateCalendar() {
+                String format = "dd MMM yyyy";
+                SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.US);
+                dateFrom.setText(sdf.format(calendar.getTime()));
+            }
+        };
+
+        DatePickerDialog.OnDateSetListener datePickerTo = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                updateCalendar();
+            }
+
+            private void updateCalendar() {
+                String format = "dd MMM yyyy";
+                SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.US);
+                dateTo.setText(sdf.format(calendar.getTime()));
+            }
+        };
+        dateFrom.setOnClickListener(view -> new DatePickerDialog(UpdateActivity.this, datePickerFrom, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show());
+        dateTo.setOnClickListener(view -> new DatePickerDialog(UpdateActivity.this, datePickerTo, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show());
+
+        btnSave.setOnClickListener(view -> {
+            MyDatabaseHelper myDB = new MyDatabaseHelper(this);
+
+            radioGroup = findViewById(R.id.radioGroup);
+            selectedRadioButton = findViewById(radioGroup.getCheckedRadioButtonId());
+            String risk = selectedRadioButton.getText().toString();
+
+            selectedTrip.setName(tripName.getText().toString().trim());
+            selectedTrip.setDes(tripDestination.getText().toString().trim());
+            selectedTrip.setDateFrom(dateFrom.getText().toString().trim());
+            selectedTrip.setDateTo(dateTo.getText().toString().trim());
+            selectedTrip.setRisk(risk);
+            selectedTrip.setDesc(description.getText().toString().trim());
+
+            long result = myDB.update(selectedTrip);
+            if (result == -1) {
+                Toast.makeText(getBaseContext(), "Failed", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getBaseContext(), "Update Successfully!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(UpdateActivity.this, TripActivity.class));
+                overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+            }
+        });
+
+    }
+
+    private void getAndDisplayInfo() {
+        Intent intent = getIntent();
+        selectedTrip = (Trip) intent.getSerializableExtra("selectedTrip");
+
+        //display in textview
+        tripName.setText(selectedTrip.getName());
+        tripDestination.setText(selectedTrip.getDes());
+        dateFrom.setText(selectedTrip.getDateFrom());
+        dateTo.setText(selectedTrip.getDateTo());
+        description.setText(selectedTrip.getDesc());
+
+        if (selectedTrip.getRisk().equals("Yes")) {
+            rdYes.setChecked(true);
+        } else {
+            rdNo.setChecked(true);
+        }
+
+//        btnBack = findViewById(R.id.actionBarBackBtn);
+//        actionBarText = findViewById(R.id.actionBarText);
+
+//        actionBarText.setText("Update \"".concat(selectedTrip.getName()) + "\"");
+//        btnBack.setOnClickListener(v -> {
+//            startActivity(new Intent(UpdateActivity.this, TripActivity.class));
+//            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 //        });
-//        delete_button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                deleteAction();
-//            }
-//        });
-//
-//    }
-//
-//    void getAndDisplayInfo() {
-//        Intent intent = getIntent();
-//        selectedTrip = (Trip) intent.getSerializableExtra("selectedTrip");
-//
-//        //display in textview
-//        title_input.setText(selectedTrip.getTitle());
-//        author_input.setText(selectedTrip.getAuthor());
-//        pages_input.setText(String.valueOf(selectedTrip.getPages()));
-//
-//        //display in action bar
-//        ActionBar ab = getSupportActionBar();
-//        if (ab != null) {
-//            ab.setTitle(selectedTrip.getTitle());
-//        }
-//    }
-//
-//    void deleteAction() {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setTitle("Delete " + selectedTrip.getTitle() + " ?");
-//        builder.setMessage("Are you sure you want to delete " + selectedTrip.getTitle() + " ?");
-//        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//                MyDatabaseHelper myDB = new MyDatabaseHelper(UpdateActivity.this);
-//                long result = myDB.delete(String.valueOf(selectedTrip.getId()));
-//                if (result == -1) {
-//                    Toast.makeText(getBaseContext(), "Failed", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    Toast.makeText(getBaseContext(), "Delete Successfully!", Toast.LENGTH_SHORT).show();
-//                }
-//                onBackPressed();
-//            }
-//        });
-//        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//
-//            }
-//        });
-//        builder.create().show();
-//    }
-//}
+    }
+}

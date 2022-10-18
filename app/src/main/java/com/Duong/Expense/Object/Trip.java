@@ -95,7 +95,7 @@ public class Trip implements Serializable { // implements serializable bam nho r
 
     @Override
     public String toString() {
-        return "Book{" +
+        return "Trip{" +
                 "id=" + id +
                 ", name='" + NameTrip + '\'' +
                 ", des='" + Destination + '\'' +

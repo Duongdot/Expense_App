@@ -1,3 +1,3 @@
-SQLite + Android - Complete Tutorial
+SQLite + Android - M_expense
 
-Note: Video tutorials will be available on my Youtube channel (Stevdza-San) soon.
+Note: Video demo app Link.

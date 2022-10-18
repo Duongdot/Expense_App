@@ -51,6 +51,7 @@ public class AddActivity extends AppCompatActivity {
 
                 Trip trip = new Trip();
                 trip.setName(Trip_input.getText().toString().trim());
+                trip.setDes(Destination_input.getText().toString().trim());
                 trip.setDesc(Destination_input.getText().toString().trim());
                 trip.setDateFrom(DateFrom_input.getText().toString().trim());
                 trip.setDateTo(DateTo_input.getText().toString().trim());

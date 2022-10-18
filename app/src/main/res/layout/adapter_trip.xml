@@ -2,32 +2,39 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:id="@+id/mainLayout"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/mainLayout">
+    >
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp">
+        android:layout_height="match_parent"
+        android:layout_marginTop="12dp"
+        android:layout_margin="12dp"
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp">
+            android:padding="12dp"
+            >
 
             <TextView
-                android:id="@+id/book_id_txt"
+                android:id="@+id/TripID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
                 android:text="1"
                 android:textColor="#000"
                 android:textSize="40sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/tripName"
@@ -35,12 +42,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginLeft="12dp"
-                android:text="Title 1"
+                android:text="Trip Name"
+                android:textColor="#000"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="#000"
-                app:layout_constraintStart_toEndOf="@+id/book_id_txt"
-                app:layout_constraintTop_toTopOf="@+id/book_id_txt" />
+                app:layout_constraintStart_toEndOf="@+id/TripID"
+                app:layout_constraintTop_toTopOf="@+id/TripID" />
 
             <LinearLayout
                 android:id="@+id/linearLayout"
@@ -48,8 +55,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginLeft="12dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal"
-                app:layout_constraintStart_toEndOf="@+id/book_id_txt"
+                app:layout_constraintStart_toEndOf="@+id/TripID"
                 app:layout_constraintTop_toBottomOf="@+id/tripName">
 
                 <ImageView
@@ -60,11 +68,12 @@
                     app:srcCompat="@drawable/ic_baseline_location_on_24" />
 
                 <TextView
-                    android:id="@+id/destination"
+                    android:id="@+id/TripDestination"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="TextView" />
+                    android:layout_marginStart="10dp"
+                    android:text="TripDestination"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -73,22 +82,47 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginLeft="12dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal"
-                app:layout_constraintStart_toEndOf="@+id/book_id_txt"
+                app:layout_constraintStart_toEndOf="@+id/TripID"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
                 <ImageView
                     android:id="@+id/imageView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     app:srcCompat="@drawable/ic_baseline_calendar_month_24" />
+
                 <TextView
                     android:id="@+id/date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Oct 16, 2022 - Oct 16, 2022" />
+                    android:layout_marginStart="10dp"
+                    android:text="Oct 16, 2022 - Oct 16, 2022"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imageViewEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    app:srcCompat="@drawable/ic_baseline_edit_note_24" />
+
+                <ImageView
+                    android:id="@+id/imageViewDelete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    app:srcCompat="@drawable/ic_baseline_delete_24" />
             </LinearLayout>
 
 

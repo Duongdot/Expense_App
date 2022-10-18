@@ -29,7 +29,7 @@ public class TripActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     FloatingActionButton add_button;
-    ImageView empty_imageview;
+    ImageView empty_imageview, update;
     TextView no_data;
 
     MyDatabaseHelper myDB;
@@ -51,6 +51,8 @@ public class TripActivity extends AppCompatActivity {
                 Intent intent = new Intent(TripActivity.this, AddActivity.class);
                 startActivity(intent);
             }
+
+
         });
 
         myDB = new MyDatabaseHelper(TripActivity.this);
@@ -61,6 +63,7 @@ public class TripActivity extends AppCompatActivity {
         tripAdapter = new TripAdapter(TripActivity.this,this, trips);
         recyclerView.setAdapter(tripAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(TripActivity.this));
+
 
     }
 

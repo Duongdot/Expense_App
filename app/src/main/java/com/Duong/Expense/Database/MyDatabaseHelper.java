@@ -19,14 +19,23 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "TripManagement.db";
     private static final int DATABASE_VERSION = 1;
 
-    private static final String TABLE_NAME = "Trip";
     private static final String COLUMN_ID = "id";
+    private static final String TABLE_NAME = "Trip";
     private static final String COLUMN_NAME = "TripName";
     private static final String COLUMN_DESTINATION = "TripDestination";
     private static final String COLUMN_DATE_FROM = "TripDateFrom";
     private static final String COLUMN_DATE_TO = "TripDateTo";
     private static final String COLUMN_RISK = "Risk";
     private static final String COLUMN_DESC = "TripDesc";
+    // Expense
+    public static final String TYPE_ID_COLUMN = "Trip_Id";
+    public static final String AMOUNT_COLUMN = "amount";
+    public static final String DATE_COLUMN = "date";
+    public static final String TIME_COLUMN = "time";
+    public static final String COMMENT_COLUMN = "comment";
+    public static final String LOCATION_COLUMN = "location";
+    public static final String IMAGE_COLUMN = "image";
+    public static final String TRIP_ID_COLUMN = "trip_Id";
 
     public MyDatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -49,6 +58,19 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_DESC + " TEXT);";
         db.execSQL(query);
     }
+    private void createTablesExpense(SQLiteDatabase db) {
+        String query = "CREATE TABLE " + TABLE_NAME +
+                " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_NAME + " TEXT, " +
+                COLUMN_DESTINATION + " TEXT, " +
+                COLUMN_DATE_FROM + " TEXT, " +
+                COLUMN_DATE_TO + " TEXT, " +
+                COLUMN_RISK + " INTEGER, " +
+                COLUMN_DESC + " TEXT);";
+        db.execSQL(query);
+    }
+
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
@@ -120,12 +142,11 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     public long delete(String row_id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE_NAME, "_id=?", new String[]{row_id});
+        return db.delete(TABLE_NAME, "id=?", new String[]{row_id});
     }
 
     public void deleteAll() {
         SQLiteDatabase db = this.getWritableDatabase();
-//        db.execSQL("DELETE FROM " + TABLE_NAME);
         dropAndRecreate(db);
     }
 
