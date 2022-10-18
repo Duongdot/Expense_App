@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -44,28 +43,31 @@ public class AddActivity extends AppCompatActivity {
         DateFrom_input = findViewById(R.id.dateFrom);
         DateTo_input = findViewById(R.id.dateEnd);
         add_button = findViewById(R.id.add_button);
-        add_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MyDatabaseHelper myDB = new MyDatabaseHelper(AddActivity.this);
 
-                Trip trip = new Trip();
-                trip.setName(Trip_input.getText().toString().trim());
-                trip.setDes(Destination_input.getText().toString().trim());
-                trip.setDesc(Destination_input.getText().toString().trim());
-                trip.setDateFrom(DateFrom_input.getText().toString().trim());
-                trip.setDateTo(DateTo_input.getText().toString().trim());
-                radioGroup = findViewById(R.id.radioGroup);
-                selectedRadioButton = findViewById(radioGroup.getCheckedRadioButtonId());
-                risk = selectedRadioButton.getText().toString();
-                long result = myDB.add(trip);
-                if (result == -1) {
-                    Toast.makeText(getBaseContext(), "Failed", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getBaseContext(), "Added Successfully!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(AddActivity.this, TripActivity.class);
-                    startActivity(intent);
-                }
+        add_button.setOnClickListener(view -> {
+            MyDatabaseHelper myDB = new MyDatabaseHelper(AddActivity.this);
+
+            Trip trip = new Trip();
+            trip.setName(Trip_input.getText().toString().trim());
+            trip.setDes(Destination_input.getText().toString().trim());
+            trip.setDesc(Destination_input.getText().toString().trim());
+            trip.setDateFrom(DateFrom_input.getText().toString().trim());
+            trip.setDateTo(DateTo_input.getText().toString().trim());
+
+            radioGroup = findViewById(R.id.radioGroup);
+            selectedRadioButton = findViewById(radioGroup.getCheckedRadioButtonId());
+            risk = selectedRadioButton.getText().toString();
+
+            trip.setRisk(risk);
+
+
+            long result = myDB.add(trip);
+            if (result == -1) {
+                Toast.makeText(getBaseContext(), "Failed", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getBaseContext(), "Added Successfully!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(AddActivity.this, TripActivity.class);
+                startActivity(intent);
             }
         });
 

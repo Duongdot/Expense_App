@@ -1,21 +1,16 @@
 package com.Duong.Expense.TripActivity;
 
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.Duong.Expense.Database.MyDatabaseHelper;
@@ -29,14 +24,12 @@ import java.util.Locale;
 
 public class UpdateActivity extends AppCompatActivity {
 
-    ImageView btnBack;
-    TextView actionBarText;
     Calendar calendar;
     EditText tripName, tripDestination, dateFrom, dateTo, description;
     Trip selectedTrip;
     RadioGroup radioGroup;
     RadioButton rdYes, rdNo, selectedRadioButton;
-    Button btnSave;
+    Button btnSave, btnCancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +44,7 @@ public class UpdateActivity extends AppCompatActivity {
         rdYes = findViewById(R.id.radioYes);
         rdNo = findViewById(R.id.radioNo);
         btnSave = findViewById(R.id.save_button);
+        btnCancel = findViewById(R.id.cancel_button);
 
         getAndDisplayInfo();
 
@@ -134,14 +128,15 @@ public class UpdateActivity extends AppCompatActivity {
         } else {
             rdNo.setChecked(true);
         }
+        ActionBar ab = getSupportActionBar();
+        if (ab != null) {
+            ab.setTitle(selectedTrip.getName());
+        }
 
-//        btnBack = findViewById(R.id.actionBarBackBtn);
-//        actionBarText = findViewById(R.id.actionBarText);
-
-//        actionBarText.setText("Update \"".concat(selectedTrip.getName()) + "\"");
-//        btnBack.setOnClickListener(v -> {
-//            startActivity(new Intent(UpdateActivity.this, TripActivity.class));
-//            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-//        });
+        btnCancel = findViewById(R.id.cancel_button);
+        btnCancel.setOnClickListener(v -> {
+            startActivity(new Intent(UpdateActivity.this, TripActivity.class));
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        });
     }
 }

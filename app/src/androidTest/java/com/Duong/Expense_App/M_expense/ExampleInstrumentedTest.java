@@ -1,4 +1,4 @@
-package com.Duong.stefan.sqlitetutorial;
+package com.Duong.Expense_App.M_expense;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.jovanovic.stefan.Expense", appContext.getPackageName());
+        assertEquals("com.Duong.Expense_App.M_expense", appContext.getPackageName());
     }
 }

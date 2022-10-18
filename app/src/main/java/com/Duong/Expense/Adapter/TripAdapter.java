@@ -71,7 +71,6 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
         holder.TripId.setText(String.valueOf(id));
         holder.tripDestination.setText(des);
         holder.tripDate.setText(dateFrom.concat(" - " + dateTo));
-        holder.deleteTrip.setOnClickListener(view -> deleteTrip(trip.getId(), trip.getName()));
         // select trip
 //        holder.editTrip.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -82,14 +81,13 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
 //                activity.startActivityForResult(intent, 1);
 //            }
 //        });
-        holder.editTrip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, UpdateActivity.class);
-                intent.putExtra("selectedTrip", UpdateActivity.class);
-                activity.startActivityForResult(intent, 1);
-            }
+        holder.editTrip.setOnClickListener(view -> {
+            //passing parameter values
+            Intent intent = new Intent(context, UpdateActivity.class);
+            intent.putExtra("selectedTrip", trip);
+            activity.startActivityForResult(intent, 1);
         });
+        holder.deleteTrip.setOnClickListener(view -> deleteTrip(trip.getId(), trip.getName()));
     }
 
     private void deleteTrip(int id, String name) {

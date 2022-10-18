@@ -1,4 +1,4 @@
-package com.Duong.stefan.sqlitetutorial;
+package com.Duong.Expense_App.M_expense;
 
 import org.junit.Test;
 
