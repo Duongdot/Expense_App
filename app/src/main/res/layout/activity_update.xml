@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TripActivity.AddActivity"
+    tools:context=".TripActivity.UpdateActivity"
     android:background="@color/colorAccent"
     android:padding="30dp">
 
@@ -23,7 +23,7 @@
             android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="Update Trip"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/white"
             android:textSize="40sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"

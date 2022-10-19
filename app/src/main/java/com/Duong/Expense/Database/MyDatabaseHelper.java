@@ -129,6 +129,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public long update(Trip trip) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+
         values.put(COLUMN_NAME, trip.getName());
         values.put(COLUMN_DESTINATION, trip.getDes());
         values.put(COLUMN_DATE_FROM, trip.getDateFrom());
@@ -136,7 +137,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_RISK, trip.getRisk());
         values.put(COLUMN_DESC, trip.getDesc());
 
-        return db.update(TABLE_NAME, values, "_id=?", new String[]{String.valueOf(trip.getId())});
+        return db.update(TABLE_NAME, values, "id=?", new String[]{String.valueOf(trip.getId())});
     }
 
 
