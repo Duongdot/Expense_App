@@ -28,13 +28,12 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_RISK = "Risk";
     private static final String COLUMN_DESC = "TripDesc";
     // Expense
-    public static final String TYPE_ID_COLUMN = "Trip_Id";
-    public static final String AMOUNT_COLUMN = "amount";
-    public static final String DATE_COLUMN = "date";
-    public static final String TIME_COLUMN = "time";
-    public static final String COMMENT_COLUMN = "comment";
-    public static final String LOCATION_COLUMN = "location";
-    public static final String IMAGE_COLUMN = "image";
+    public static final String Expense_ID_COLUMN = "ExpenseId";
+    public static final String AMOUNT_COLUMN = "Amount";
+    public static final String DATE_COLUMN = "Date";
+    public static final String COMMENT_COLUMN = "Note";
+    public static final String LOCATION_COLUMN = "ExpenseDestination";
+//    public static final String IMAGE_COLUMN = "image";
     public static final String TRIP_ID_COLUMN = "trip_Id";
 
     public MyDatabaseHelper(@Nullable Context context) {
@@ -51,24 +50,31 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         String query = "CREATE TABLE " + TABLE_NAME +
                 " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_NAME + " TEXT, " +
-                COLUMN_DESTINATION + " TEXT, " +
+                DATE_COLUMN + " DATE, " +
                 COLUMN_DATE_FROM + " TEXT, " +
                 COLUMN_DATE_TO + " TEXT, " +
                 COLUMN_RISK + " INTEGER, " +
                 COLUMN_DESC + " TEXT);";
         db.execSQL(query);
     }
-    private void createTablesExpense(SQLiteDatabase db) {
-        String query = "CREATE TABLE " + TABLE_NAME +
-                " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_NAME + " TEXT, " +
-                COLUMN_DESTINATION + " TEXT, " +
-                COLUMN_DATE_FROM + " TEXT, " +
-                COLUMN_DATE_TO + " TEXT, " +
-                COLUMN_RISK + " INTEGER, " +
-                COLUMN_DESC + " TEXT);";
-        db.execSQL(query);
-    }
+
+//    @Override
+//    public void createTablesExpense(SQLiteDatabase db) {
+//        createTables(db);
+//    }
+//
+//    private void createTablesExpense(SQLiteDatabase db) {
+//        String query = "CREATE TABLE " + TABLE_NAME +
+//                " (" + Expense_ID_COLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+//                AMOUNT_COLUMN + " Float, " +
+//                COLUMN_DESTINATION + " TEXT, " +
+//                DATE_COLUMN + " DATE, " +
+//                COMMENT_COLUMN + " TEXT, " +
+//                LOCATION_COLUMN + " TEXT, " +
+//                COLUMN_DESC + " TEXT," +
+//                " FOREIGN KEY ("+TRIP_ID_COLUMN+") REFERENCES "+TABLE_NAME+"("+COLUMN_ID+"));";
+//        db.execSQL(query);
+//    }
 
 
 
