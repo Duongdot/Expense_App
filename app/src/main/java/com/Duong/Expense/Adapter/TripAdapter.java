@@ -21,6 +21,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.Duong.Expense.Database.MyDatabaseHelper;
+import com.Duong.Expense.ExpenseActivity.ExpenseActivity;
 import com.Duong.Expense.Object.Trip;
 import com.Duong.Expense.R;
 import com.Duong.Expense.TripActivity.TripActivity;
@@ -81,6 +82,15 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
 //                activity.startActivityForResult(intent, 1);
 //            }
 //        });
+        holder.mainLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //passing parameter values
+                Intent intent = new Intent(context, ExpenseActivity.class);
+                intent.putExtra("selectedTrip", trip);
+                activity.startActivityForResult(intent, 1);
+            }
+        });
         holder.editTrip.setOnClickListener(view -> {
             //passing parameter values
             Intent intent = new Intent(context, UpdateActivity.class);
