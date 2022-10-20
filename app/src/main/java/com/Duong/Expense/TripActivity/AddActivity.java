@@ -70,8 +70,12 @@ public class AddActivity extends AppCompatActivity {
 //                startActivity(intent);
 //            }
 //        });
-        add_button = findViewById(R.id.add_button);
-        add_button.setOnClickListener(v -> checkCredentials());
+        add_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkCredentials();
+            }
+        });
 
 
         calendar = Calendar.getInstance();
@@ -120,19 +124,22 @@ public class AddActivity extends AppCompatActivity {
         String location = Destination_input.getText().toString().trim();
         String dateF = DateFrom_input.getText().toString().trim();
         String dateT = DateTo_input.getText().toString().trim();
+        String Description = desc_input.getText().toString().trim();
 
         radioGroup = findViewById(R.id.radioGroup);
         selectedRadioButton = findViewById(radioGroup.getCheckedRadioButtonId());
         risk = selectedRadioButton.getText().toString();
 
         if (tripName.isEmpty()) {
-            showError(Trip_input, "This is a required field");
+            showError(Trip_input);
         } else if (location.isEmpty()) {
-            showError(Destination_input, "This is a required field");
+            showError(Destination_input);
         } else if (dateF.isEmpty()) {
-            showError(DateFrom_input, "This is a required field");
+            showError(DateFrom_input);
         } else if (dateT.isEmpty()) {
-            showError(DateTo_input, "This is a required field");
+            showError(DateTo_input);
+        }else if (Description.isEmpty()) {
+            showError(desc_input);
         } else {
             addTrip();
         }
@@ -140,20 +147,21 @@ public class AddActivity extends AppCompatActivity {
 
     private void addTrip() {
         MyDatabaseHelper myDB = new MyDatabaseHelper(AddActivity.this);
+
+        radioGroup = findViewById(R.id.radioGroup);
+        selectedRadioButton = findViewById(radioGroup.getCheckedRadioButtonId());
+        risk = selectedRadioButton.getText().toString();
+
+
             Trip trip = new Trip();
             trip.setName(Trip_input.getText().toString().trim());
-            trip.setDes(Destination_input.getText().toString().trim());
-            trip.setDesc(Destination_input.getText().toString().trim());
+            trip.setDesc(desc_input.getText().toString().trim());
             trip.setDateFrom(DateFrom_input.getText().toString().trim());
             trip.setDateTo(DateTo_input.getText().toString().trim());
-
-            radioGroup = findViewById(R.id.radioGroup);
-            selectedRadioButton = findViewById(radioGroup.getCheckedRadioButtonId());
-            risk = selectedRadioButton.getText().toString();
-
+            trip.setDes(Destination_input.getText().toString().trim());
             trip.setRisk(risk);
 
-            long result = myDB.add(trip);
+            long result = myDB.addTrip(trip);
             if (result == -1) {
                 Toast.makeText(getBaseContext(), "Failed", Toast.LENGTH_SHORT).show();
             } else {
@@ -163,8 +171,8 @@ public class AddActivity extends AppCompatActivity {
             }
     }
 
-    private void showError(EditText input, String s) {
-        input.setError(s);
+    private void showError(EditText input) {
+        input.setError("This is a required field");
         input.requestFocus();
     }
 }

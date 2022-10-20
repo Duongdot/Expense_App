@@ -28,13 +28,13 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_RISK = "Risk";
     private static final String COLUMN_DESC = "TripDesc";
     // Expense
-    public static final String Expense_ID_COLUMN = "ExpenseId";
-    public static final String AMOUNT_COLUMN = "Amount";
-    public static final String DATE_COLUMN = "Date";
-    public static final String COMMENT_COLUMN = "Note";
-    public static final String LOCATION_COLUMN = "ExpenseDestination";
+//    public static final String Expense_ID_COLUMN = "ExpenseId";
+//    public static final String AMOUNT_COLUMN = "Amount";
+//    public static final String DATE_COLUMN = "Date";
+//    public static final String COMMENT_COLUMN = "Note";
+//    public static final String LOCATION_COLUMN = "ExpenseDestination";
 //    public static final String IMAGE_COLUMN = "image";
-    public static final String TRIP_ID_COLUMN = "trip_Id";
+//    public static final String TRIP_ID_COLUMN = "trip_Id";
 
     public MyDatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -46,11 +46,21 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         createTables(db);
     }
 
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+        dropAndRecreate(db);
+    }
+
+    private void dropAndRecreate(SQLiteDatabase db) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        onCreate(db);
+    }
+
     private void createTables(SQLiteDatabase db) {
         String query = "CREATE TABLE " + TABLE_NAME +
                 " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_NAME + " TEXT, " +
-                DATE_COLUMN + " DATE, " +
+                COLUMN_DESTINATION + " TEXT, " +
                 COLUMN_DATE_FROM + " TEXT, " +
                 COLUMN_DATE_TO + " TEXT, " +
                 COLUMN_RISK + " INTEGER, " +
@@ -76,18 +86,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 //        db.execSQL(query);
 //    }
 
-
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        dropAndRecreate(db);
-    }
-
-    private void dropAndRecreate(SQLiteDatabase db) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-        onCreate(db);
-    }
-    public long add(Trip trip) {
+    public long addTrip(Trip trip) {
         long insertId;
         SQLiteDatabase db = this.getWritableDatabase();
 

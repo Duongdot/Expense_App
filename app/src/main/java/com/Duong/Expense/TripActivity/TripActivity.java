@@ -29,7 +29,7 @@ public class TripActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     FloatingActionButton add_button;
-    ImageView empty_imageview, update;
+    ImageView empty_imageview;
     TextView no_data;
 
     MyDatabaseHelper myDB;
@@ -42,7 +42,7 @@ public class TripActivity extends AppCompatActivity {
         setContentView(R.layout.activity_trip);
 
         recyclerView = findViewById(R.id.recyclerView);
-        add_button = findViewById(R.id.add_button);
+        add_button = findViewById(R.id.Floating_Add_button);
         empty_imageview = findViewById(R.id.empty_imageview);
         no_data = findViewById(R.id.no_data);
         add_button.setOnClickListener(new View.OnClickListener() {
@@ -51,7 +51,6 @@ public class TripActivity extends AppCompatActivity {
                 Intent intent = new Intent(TripActivity.this, AddActivity.class);
                 startActivity(intent);
             }
-
 
         });
 
