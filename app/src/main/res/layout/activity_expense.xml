@@ -20,6 +20,7 @@
 <!--        app:layout_constraintTop_toBottomOf="@+id/searchView"-->
 <!--        app:layout_constraintVertical_bias="0.0" />-->
     <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="25dp"
@@ -91,6 +92,36 @@
 
 
         <TextView
+            android:id="@+id/Risk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/textView3"
+            android:layout_alignBottom="@+id/textView3"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="-1dp"
+
+            android:layout_toEndOf="@+id/textView11"
+            android:text="Yes/No"
+            android:textColor="#757575"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/Description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/textView4"
+            android:layout_alignBottom="@+id/textView4"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="-1dp"
+
+            android:layout_toEndOf="@+id/textView11"
+            android:text="description"
+            android:textColor="#757575"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/textView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -158,13 +189,45 @@
             android:layout_alignTop="@+id/imageViewdis"
 
             android:layout_alignBottom="@+id/imageViewdis"
-            android:layout_marginStart="14dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="0dp"
             android:layout_marginBottom="1dp"
             android:layout_toEndOf="@+id/imageViewdis"
 
 
             android:text="Description: "
+            android:textColor="#757575"
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/imageViewMoney"
+
+            android:layout_alignBottom="@+id/imageViewMoney"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="1dp"
+            android:layout_toEndOf="@+id/imageViewdis"
+
+
+            android:text="Total Expense: "
+            android:textColor="#757575"
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/Total_expense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/textView5"
+
+            android:layout_alignBottom="@+id/textView5"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="1dp"
+            android:layout_toEndOf="@+id/textView5"
+
+            android:textStyle="bold"
+            android:text="VND"
             android:textColor="#757575"
             android:textSize="15sp" />
 
@@ -203,12 +266,18 @@
             android:layout_below="@+id/imageView"
             android:layout_marginTop="8dp"
             app:srcCompat="@drawable/ic_baseline_edit_note_24" />
-
+        <ImageView
+            android:id="@+id/imageViewMoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageViewdis"
+            android:layout_marginTop="8dp"
+            app:srcCompat="@drawable/ic_baseline_attach_money_24" />
 
 
     </RelativeLayout>
     <ImageView
-        android:id="@+id/empty_imageview"
+        android:id="@+id/empty_imageview_Expense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="230dp"
@@ -220,7 +289,7 @@
         app:srcCompat="@drawable/ic_empty" />
 
     <TextView
-        android:id="@+id/no_data"
+        android:id="@+id/no_data_Expense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -233,7 +302,7 @@
         app:layout_constraintTop_toBottomOf="@+id/empty_imageview" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/Floating_Add_button"
+        android:id="@+id/Floating_Add_button_Expense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="28dp"
@@ -244,4 +313,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_add" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

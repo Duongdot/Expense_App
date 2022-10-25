@@ -22,16 +22,8 @@ public class Expense implements Serializable {
         return TypeExpense;
     }
 
-    public void getTypeExpense(String type) {
+    public void setTypeExpense(String type) {
         this.TypeExpense = type;
-    }
-
-    public String getDesExpense() {
-        return DestinationExpense;
-    }
-
-    public void setDesExpense(String des) {
-        this.DestinationExpense = des;
     }
 
     public String getDate() {
@@ -54,7 +46,7 @@ public class Expense implements Serializable {
         return Note;
     }
 
-    public void getNote(String note) {
+    public void setNote(String note) {
         this.Note = note;
     }
 

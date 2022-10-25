@@ -14,7 +14,7 @@ public class Add_Expense_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_expense);
-        Spinner spinner = (Spinner) findViewById(R.id.planets_spinner);
+        Spinner spinner = (Spinner) findViewById(R.id.Expense_spinner);
 // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.planets_array, android.R.layout.simple_spinner_item);

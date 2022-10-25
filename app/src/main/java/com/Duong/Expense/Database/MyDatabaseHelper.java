@@ -122,7 +122,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         return insertId;
     }
 
-    public List<Trip> getAllExpense() {
+    public List<Trip> getAllTrip() {
         final String query = "SELECT * FROM " + TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         final List<Trip> list = new ArrayList<>();
@@ -159,9 +159,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 do {
                     Expense expense = new Expense();
                     expense.setId(cursor.getInt(0));
-                    expense.setDesExpense(cursor.getString(1));
+                    expense.setTypeExpense(cursor.getString(1));
                     expense.setDate(cursor.getString(2));
-                    expense.setAmount(Float.valueOf(cursor.getString(3)));
+                    expense.setNote(cursor.getString(3));
+                    expense.setAmount(Float.valueOf(cursor.getString(4)));
                     // Adding object to list
                     list.add(expense);
                 } while (cursor.moveToNext());
@@ -170,6 +171,25 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             db.close();
         }
         return list;
+    }
+    public Float getTotalExpense(String id){
+        Float total = 0f;
+        String query = "SELECT " + AMOUNT_COLUMN + " FROM " + TABLE_NAME_Expense + " WHERE " + TRIP_ID_COLUMN + " = " + id;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        final Cursor cursor;
+        if (db != null) {
+            cursor = db.rawQuery(query, null);
+            if (cursor.moveToFirst()) {
+                do {
+                    total += cursor.getFloat(0);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            db.close();
+        }
+        return total;
     }
 
     public long update(Trip trip) {
