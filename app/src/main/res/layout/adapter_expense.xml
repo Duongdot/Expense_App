@@ -2,10 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mainLayout"
+    android:id="@+id/mainLayoutExpense"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".Adapter.ExpenseAdapter"
+
     >
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -22,10 +22,10 @@
             >
 
             <TextView
-                android:id="@+id/tripName"
+                android:id="@+id/TypeExpense"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Trip Name"
+                android:text="Type"
                 android:textColor="#000"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -39,7 +39,7 @@
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tripName">
+                app:layout_constraintTop_toBottomOf="@+id/TypeExpense">
 
                 <ImageView
                     android:id="@+id/Location"

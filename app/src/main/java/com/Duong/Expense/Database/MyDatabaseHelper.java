@@ -46,8 +46,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        createTables(db);
         createTablesExpense(db);
+        createTables(db);
     }
 
     @Override
@@ -122,7 +122,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         return insertId;
     }
 
-    public List<Trip> getAllTrip() {
+    public List<Trip> getAll() {
         final String query = "SELECT * FROM " + TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         final List<Trip> list = new ArrayList<>();
@@ -148,7 +148,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         }
         return list;
     }
-    public List<Expense> getAll() {
+    public List<Expense> getAllExpense() {
         final String query = "SELECT * FROM " + TABLE_NAME_Expense;
         SQLiteDatabase db = this.getReadableDatabase();
         final List<Expense> list = new ArrayList<>();

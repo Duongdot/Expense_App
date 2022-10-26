@@ -25,13 +25,20 @@ public class Expense implements Serializable {
     public void setTypeExpense(String type) {
         this.TypeExpense = type;
     }
+    public String getDestinationExpense() {
+        return DestinationExpense;
+    }
+
+    public void setDestinationExpense(String des) {
+        this.DestinationExpense = des;
+    }
 
     public String getDate() {
         return Date;
     }
 
-    public void setDate(String des) {
-        this.Date = des;
+    public void setDate(String date) {
+        this.Date = date;
     }
 
     public Float getAmount() {
@@ -51,19 +58,21 @@ public class Expense implements Serializable {
     }
 
 
-    public Expense(int id, String type, String des, String date, String note) {
+    public Expense(int id, String type, String des, String date, String note, float amount) {
         this.id = id;
         this.TypeExpense = type;
         this.DestinationExpense = des;
         this.Date = date;
         this.Note = note;
+        this.Amount = amount;
     }
 
-    public Expense(String type, String des, String date, String note) {
+    public Expense(String type, String des, String date, String note, float amount) {
         this.TypeExpense = type;
         this.DestinationExpense = des;
         this.Date = date;
         this.Note = note;
+        this.Amount = amount;
     }
 
     public Expense() {

@@ -75,7 +75,7 @@ public class TripActivity extends AppCompatActivity {
     }
 
     void displayOrNot(){
-        trips = myDB.getAllTrip();
+        trips = myDB.getAll();
         if(trips.size() == 0){
             empty_imageview.setVisibility(View.VISIBLE);
             no_data.setVisibility(View.VISIBLE);

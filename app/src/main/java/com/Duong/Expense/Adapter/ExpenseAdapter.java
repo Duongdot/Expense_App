@@ -1,17 +1,8 @@
 package com.Duong.Expense.Adapter;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +13,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.Duong.Expense.Database.MyDatabaseHelper;
 import com.Duong.Expense.Object.Expense;
 import com.Duong.Expense.R;
 
@@ -31,16 +28,15 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHo
 
     private final Context context;
     private final Activity activity;
-    private final List<ExpenseAdapter> expenses;
+    private final List<Expense> expenses;
 
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
 
-    ExpenseAdapter(Activity activity, Context context, List<Expense> expense) {
+    public ExpenseAdapter(Activity activity, Context context, List<Expense> expense) {
         this.activity = activity;
         this.context = context;
         this.expenses = expense;
-
     }
 
     @NonNull
@@ -51,20 +47,22 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHo
         return new ExpenseAdapter.MyViewHolder(view);
     }
 
-    @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(@NonNull ExpenseAdapter.MyViewHolder holder, int position) {
         Expense expense = expenses.get(position);
 
         String types = expense.getTypeExpense();
-        Float money = expense.getAmount();
+        String amount = String.valueOf(expense.getAmount());
         String date = expense.getDate();
+        String note = expense.getDate();
 //        String currency = expense.getCurrency();
 
         holder.type.setText(types);
 //        holder.currency.setText(money + " " + currency.substring(currency.length() - 3)); // amount and currency
         holder.expenseDate.setText(date);
+        holder.expenseAmount.setText(amount);
+        holder.expenseNote.setText(note);
 
         holder.deleteExpense.setOnClickListener(v -> deleteExpense(expense, expense.getId()));
 //        holder.updateExpense.setOnClickListener(v -> {
@@ -107,22 +105,23 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHo
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         ImageView updateExpense, deleteExpense;
-        TextView type, expenseDate, currency;
-        LinearLayout mainLayout;
+        TextView type, expenseDate, expenseNote, expenseAmount;
+        LinearLayout mainLayoutExpense;
+
 
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            type = itemView.findViewById(R.id.expenseType);
+            type = itemView.findViewById(R.id.TypeExpense);
 
-            expenseDate = itemView.findViewById(R.id.expenseDate);
-            currency = itemView.findViewById(R.id.amount);
-            updateExpense = itemView.findViewById(R.id.updateExpense);
-            deleteExpense = itemView.findViewById(R.id.deleteExpense);
-            mainLayout = itemView.findViewById(R.id.mainLayout);
+            expenseDate = itemView.findViewById(R.id.date);
+            expenseAmount = itemView.findViewById(R.id.amount);
+            updateExpense = itemView.findViewById(R.id.imageViewEditExpense);
+            deleteExpense = itemView.findViewById(R.id.imageViewDeleteExpense);
+            mainLayoutExpense = itemView.findViewById(R.id.mainLayoutExpense);
             //Animate Recyclerview
             Animation translate_anim = AnimationUtils.loadAnimation(context, android.R.anim.fade_in);
-            mainLayout.setAnimation(translate_anim);
+            mainLayoutExpense.setAnimation(translate_anim);
         }
 
     }

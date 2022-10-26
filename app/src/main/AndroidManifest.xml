@@ -10,25 +10,13 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.Duong.Expense.ExpenseActivity.Add_Expense_Activity"
-            android:exported="true">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name="com.Duong.Expense.Adapter.ExpenseAdapter"
-            android:exported="true">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+            android:exported="true"
+            android:parentActivityName=".ExpenseActivity.ExpenseActivity"
+            />
         <activity
             android:name="com.Duong.Expense.ExpenseActivity.ExpenseActivity"
-            android:exported="true">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+            android:exported="true"/>
+
         <activity
             android:name="com.Duong.Expense.TripActivity.UpdateActivity"
             android:parentActivityName="com.Duong.Expense.TripActivity.TripActivity" />

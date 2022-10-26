@@ -1,18 +1,17 @@
 package com.Duong.Expense.ExpenseActivity;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.Duong.Expense.Adapter.ExpenseAdapter;
 import com.Duong.Expense.Database.MyDatabaseHelper;
@@ -23,10 +22,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class ExpenseActivity extends AppCompatActivity {
-    TextView tripName, destination, dateFrom, dateTo, tripRisk, currency, empty, total;
+    TextView tripName, destination, dateFrom, dateTo, tripRisk, empty, total;
     Trip selectedTrip;
 
     FloatingActionButton btnAdd;
@@ -54,19 +52,19 @@ public class ExpenseActivity extends AppCompatActivity {
         dateFrom = findViewById(R.id.dateFrom);
         dateTo = findViewById(R.id.dateTo);
         tripRisk = findViewById(R.id.Risk);
-        currency = findViewById(R.id.amount);
+//        currency = findViewById(R.id.amount);
         total = findViewById(R.id.Total_expense);
         empty = findViewById(R.id.no_data_Expense);
         emptyImage = findViewById(R.id.empty_imageview_Expense);
 
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.recyclerViewExpense);
 
-        myDB = new MyDatabaseHelper(this);
+        myDB = new MyDatabaseHelper(ExpenseActivity.this);
         expenses = new ArrayList<>();
 
         displayOrNot();
 
-        expenseAdapter = new ExpenseAdapter(ExpenseActivity.this, this, expenses);
+        expenseAdapter = new ExpenseAdapter(ExpenseActivity.this,this, expenses);
         recyclerView.setAdapter(expenseAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(ExpenseActivity.this));
 
@@ -78,13 +76,7 @@ public class ExpenseActivity extends AppCompatActivity {
         });
         getDetails();
     }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1){
-            recreate();
-        }
-    }
+
     private void getDetails() {
 //        tripID.setText(String.valueOf(selectedTrip.getId()));
 
@@ -100,14 +92,22 @@ public class ExpenseActivity extends AppCompatActivity {
 //        total.setText(totalExpenses + " " + (selectedTrip.getCurrency()).substring((selectedTrip.getCurrency()).length() - 3));
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1){
+            recreate();
+        }
+    }
+
     void displayOrNot(){
-        expenses = myDB.getAll();
+        expenses = myDB.getAllExpense();
         if(expenses.size() == 0){
-            empty_imageview_Expense.setVisibility(View.VISIBLE);
-            no_data_Expense.setVisibility(View.VISIBLE);
+            emptyImage.setVisibility(View.VISIBLE);
+            empty.setVisibility(View.VISIBLE);
         }else{
-            empty_imageview_Expense.setVisibility(View.VISIBLE);
-            no_data_Expense.setVisibility(View.VISIBLE);
+            emptyImage.setVisibility(View.GONE);
+            empty.setVisibility(View.GONE);
         }
     }
 
