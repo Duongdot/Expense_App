@@ -17,7 +17,7 @@ import java.util.List;
 public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     private final Context context;
-    private static final String DATABASE_NAME = "TripManagement.db";
+    private static final String DATABASE_NAME = "M_expense.db";
     private static final int DATABASE_VERSION = 1;
 
     private static final String COLUMN_ID = "id";
@@ -44,24 +44,27 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         this.context = context;
     }
 
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        createTablesExpense(db);
-        createTables(db);
-    }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         dropAndRecreate(db);
     }
 
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        createTables(db);
+        createTablesExpense(db);
+    }
+
     private void dropAndRecreate(SQLiteDatabase db) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_Expense);
         onCreate(db);
     }
 
     private void createTables(SQLiteDatabase db) {
-        String query = "CREATE TABLE " + TABLE_NAME +
+        String query = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME +
                 " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_NAME + " TEXT, " +
                 COLUMN_DESTINATION + " TEXT, " +
@@ -73,7 +76,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void createTablesExpense(SQLiteDatabase db) {
-        String query = "CREATE TABLE " + TABLE_NAME +
+        String query = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_Expense +
                 " (" + Expense_ID_COLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 AMOUNT_COLUMN + " Float, " +
                 COLUMN_TYPE + " TEXT, " +
