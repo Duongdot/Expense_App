@@ -29,7 +29,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_RISK = "Risk";
     private static final String COLUMN_DESC = "TripDesc";
     // Expense
-    public static final String Expense_ID_COLUMN = "ExpenseId";
+    //public static final String Expense_ID_COLUMN = "ExpenseId";
     private static final String TABLE_NAME_Expense = "Expense";
     private static final String COLUMN_TYPE = "expenseType";
     public static final String AMOUNT_COLUMN = "Amount";
@@ -77,8 +77,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     private void createTablesExpense(SQLiteDatabase db) {
         String query = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_Expense +
-                " (" + Expense_ID_COLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                AMOUNT_COLUMN + " Float, " +
+                " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                AMOUNT_COLUMN + " FLOAT, " +
                 COLUMN_TYPE + " TEXT, " +
                 DATE_COLUMN + " TEXT, " +
                 COMMENT_COLUMN + " TEXT, " +
@@ -153,7 +153,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         final String query = String.format(
                 "SELECT b.%s, %s, %s, %s, %s, %s, %s FROM " +
                         "%s a, %s b WHERE a.%s = b.%s AND b.%s = %s ORDER BY b.%s DESC",
-                Expense_ID_COLUMN, COLUMN_TYPE, AMOUNT_COLUMN, DATE_COLUMN, COMMENT_COLUMN, LOCATION_COLUMN, TRIP_ID_COLUMN, TABLE_NAME, TABLE_NAME_Expense, COLUMN_ID, TRIP_ID_COLUMN, TRIP_ID_COLUMN, id, COLUMN_ID
+                COLUMN_ID, COLUMN_TYPE, AMOUNT_COLUMN, DATE_COLUMN, COMMENT_COLUMN, LOCATION_COLUMN, TRIP_ID_COLUMN, TABLE_NAME, TABLE_NAME_Expense, COLUMN_ID, TRIP_ID_COLUMN, TRIP_ID_COLUMN, id, COLUMN_ID
         );
         //final String query = "SELECT * FROM " + TABLE_NAME_Expense;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -165,7 +165,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 do {
                     Expense expense = new Expense();
                     expense.setId(cursor.getInt(0));
-                    expense.setAmount(Float.valueOf(cursor.getString(1)));
+                    expense.setAmount(cursor.getFloat(1));
                     expense.setTypeExpense(cursor.getString(2));
                     expense.setDate(cursor.getString(3));
                     expense.setNote(cursor.getString(4));
