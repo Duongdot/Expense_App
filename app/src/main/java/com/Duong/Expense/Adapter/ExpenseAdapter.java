@@ -56,6 +56,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHo
         String amount = String.valueOf(expense.getAmount());
         String date = expense.getDate();
         String note = expense.getDate();
+        String des = expense.getDestinationExpense();
 //        String currency = expense.getCurrency();
 
         holder.type.setText(types);
@@ -63,6 +64,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHo
         holder.expenseDate.setText(date);
         holder.expenseAmount.setText(amount);
         holder.expenseNote.setText(note);
+        holder.des.setText(des);
 
         holder.deleteExpense.setOnClickListener(v -> deleteExpense(expense, expense.getId()));
 //        holder.updateExpense.setOnClickListener(v -> {
@@ -105,7 +107,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHo
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         ImageView updateExpense, deleteExpense;
-        TextView type, expenseDate, expenseNote, expenseAmount;
+        TextView type, expenseDate, expenseNote, expenseAmount, des;
         LinearLayout mainLayoutExpense;
 
 
@@ -116,6 +118,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHo
 
             expenseDate = itemView.findViewById(R.id.date);
             expenseAmount = itemView.findViewById(R.id.amount);
+            des = itemView.findViewById(R.id.ExpenseDestination);
             updateExpense = itemView.findViewById(R.id.imageViewEditExpense);
             deleteExpense = itemView.findViewById(R.id.imageViewDeleteExpense);
             mainLayoutExpense = itemView.findViewById(R.id.mainLayoutExpense);

@@ -17,7 +17,7 @@ import java.util.List;
 public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     private final Context context;
-    private static final String DATABASE_NAME = "M_expense.db";
+    private static final String DATABASE_NAME = "expense.db";
     private static final int DATABASE_VERSION = 1;
 
     private static final String COLUMN_ID = "id";
@@ -80,11 +80,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 " (" + Expense_ID_COLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 AMOUNT_COLUMN + " Float, " +
                 COLUMN_TYPE + " TEXT, " +
-                COLUMN_DESTINATION + " TEXT, " +
-                DATE_COLUMN + " DATE, " +
+                DATE_COLUMN + " TEXT, " +
                 COMMENT_COLUMN + " TEXT, " +
                 LOCATION_COLUMN + " TEXT, " +
-                COLUMN_DESC + " TEXT," +
                 TRIP_ID_COLUMN + " INTEGER, " +
                 " FOREIGN KEY ("+TRIP_ID_COLUMN+") REFERENCES "+TABLE_NAME+"("+COLUMN_ID+"));";
         db.execSQL(query);
@@ -118,7 +116,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         values.put(DATE_COLUMN, expense.getDate());
         values.put(LOCATION_COLUMN, expense.getNote());
         values.put(COMMENT_COLUMN, expense.getNote());
-
+        values.put(TRIP_ID_COLUMN, expense.getTripID());
         // Inserting Row
         insertId = db.insert(TABLE_NAME_Expense, null, values);
         db.close(); // Closing database connection
@@ -162,10 +160,11 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 do {
                     Expense expense = new Expense();
                     expense.setId(cursor.getInt(0));
-                    expense.setTypeExpense(cursor.getString(1));
-                    expense.setDate(cursor.getString(2));
-                    expense.setNote(cursor.getString(3));
-                    expense.setAmount(Float.valueOf(cursor.getString(4)));
+                    expense.setAmount(Float.valueOf(cursor.getString(1)));
+                    expense.setTypeExpense(cursor.getString(2));
+                    expense.setDate(cursor.getString(3));
+                    expense.setNote(cursor.getString(4));
+                    expense.setDestinationExpense(cursor.getString(5));
                     // Adding object to list
                     list.add(expense);
                 } while (cursor.moveToNext());

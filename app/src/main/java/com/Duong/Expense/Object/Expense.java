@@ -3,19 +3,25 @@ package com.Duong.Expense.Object;
 import java.io.Serializable;
 
 public class Expense implements Serializable {
-    private int id;
+    private int idExpense;
     private String TypeExpense;
     private String DestinationExpense;
     private String Date;
-    private Float Amount;
+    private float Amount;
     private String Note;
+    private int tripID;
+
+    public Expense() {
+
+    }
+
 
     public int getId() {
-        return id;
+        return idExpense;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.idExpense = id;
     }
 
     public String getTypeExpense() {
@@ -57,38 +63,41 @@ public class Expense implements Serializable {
         this.Note = note;
     }
 
+    public int getTripID() {
+        return tripID;
+    }
 
-    public Expense(int id, String type, String des, String date, String note, float amount) {
-        this.id = id;
+    public void setTripID(int tripID) {
+        this.tripID = tripID;
+    }
+
+    public Expense(int id, String type, String des, String date, String note, float amount, int tripID) {
+        this.idExpense = id;
         this.TypeExpense = type;
         this.DestinationExpense = des;
         this.Date = date;
         this.Note = note;
         this.Amount = amount;
+        this.tripID = tripID;
     }
-
-    public Expense(String type, String des, String date, String note, float amount) {
+    public Expense(String type, String des, String date, String note, float amount, int tripID) {
         this.TypeExpense = type;
         this.DestinationExpense = des;
         this.Date = date;
         this.Note = note;
         this.Amount = amount;
+        this.tripID = tripID;
     }
-
-    public Expense() {
-
-    }
-
 
     @Override
     public String toString() {
-        return "Trip{" +
-                "id=" + id +
-                ", name='" + TypeExpense + '\'' +
+        return "Expense{" +
+                "id=" + idExpense +
+                ", type='" + TypeExpense + '\'' +
                 ", des='" + DestinationExpense + '\'' +
                 ", dateFrom='" + Date + '\'' +
-                ", dateTo='" + Note + '\'' +
                 ", risk='" + Amount + '\'' +
+                ", tripID='" + tripID + '\'' +
                 '}';
     }
 }

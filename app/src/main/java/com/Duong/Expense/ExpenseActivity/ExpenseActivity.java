@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExpenseActivity extends AppCompatActivity {
-    TextView tripName, destination, dateFrom, dateTo, tripRisk, empty, total;
+    TextView tripName, destination, dateFrom, dateTo, tripRisk, empty, total, desc;
     Trip selectedTrip;
 
     FloatingActionButton btnAdd;
@@ -52,6 +52,7 @@ public class ExpenseActivity extends AppCompatActivity {
         dateFrom = findViewById(R.id.dateFrom);
         dateTo = findViewById(R.id.dateTo);
         tripRisk = findViewById(R.id.Risk);
+        desc = findViewById(R.id.Description);
 //        currency = findViewById(R.id.amount);
         total = findViewById(R.id.Total_expense);
         empty = findViewById(R.id.no_data_Expense);
@@ -78,17 +79,17 @@ public class ExpenseActivity extends AppCompatActivity {
     }
 
     private void getDetails() {
-//        tripID.setText(String.valueOf(selectedTrip.getId()));
-
+        //tripID.setText(String.valueOf(selectedTrip.getId()));
         tripName.setText(selectedTrip.getName());
         destination.setText(selectedTrip.getDes());
         dateFrom.setText(selectedTrip.getDateFrom());
         dateTo.setText(selectedTrip.getDateTo());
         tripRisk.setText(selectedTrip.getRisk());
+        desc.setText(selectedTrip.getDesc());
 //        currency.setText(selectedTrip.getCurrency());
 
-        Float totalExpenses = myDB.getTotalExpense(String.valueOf(selectedTrip.getId()));
-
+//        Float totalExpenses = myDB.getTotalExpense(String.valueOf(selectedTrip.getId()));
+//
 //        total.setText(totalExpenses + " " + (selectedTrip.getCurrency()).substring((selectedTrip.getCurrency()).length() - 3));
     }
 
