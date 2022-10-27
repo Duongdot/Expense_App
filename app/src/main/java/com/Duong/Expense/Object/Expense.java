@@ -89,15 +89,15 @@ public class Expense implements Serializable {
         this.tripID = tripID;
     }
 
-    @Override
-    public String toString() {
-        return "Expense{" +
-                "id=" + idExpense +
-                ", type='" + TypeExpense + '\'' +
-                ", des='" + DestinationExpense + '\'' +
-                ", dateFrom='" + Date + '\'' +
-                ", risk='" + Amount + '\'' +
-                ", tripID='" + tripID + '\'' +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Expense{" +
+//                "id=" + idExpense +
+//                ", type='" + TypeExpense + '\'' +
+//                ", des='" + DestinationExpense + '\'' +
+//                ", dateFrom='" + Date + '\'' +
+//                ", risk='" + Amount + '\'' +
+//                ", tripID='" + tripID + '\'' +
+//                '}';
+//    }
 }

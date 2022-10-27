@@ -150,7 +150,12 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         return list;
     }
     public List<Expense> getAllExpense(int id) {
-        final String query = "SELECT * FROM " + TABLE_NAME_Expense;
+        final String query = String.format(
+                "SELECT b.%s, %s, %s, %s, %s, %s, %s FROM " +
+                        "%s a, %s b WHERE a.%s = b.%s AND b.%s = %s ORDER BY b.%s DESC",
+                Expense_ID_COLUMN, COLUMN_TYPE, AMOUNT_COLUMN, DATE_COLUMN, COMMENT_COLUMN, LOCATION_COLUMN, TRIP_ID_COLUMN, TABLE_NAME, TABLE_NAME_Expense, COLUMN_ID, TRIP_ID_COLUMN, TRIP_ID_COLUMN, id, COLUMN_ID
+        );
+        //final String query = "SELECT * FROM " + TABLE_NAME_Expense;
         SQLiteDatabase db = this.getReadableDatabase();
         final List<Expense> list = new ArrayList<>();
         final Cursor cursor;
