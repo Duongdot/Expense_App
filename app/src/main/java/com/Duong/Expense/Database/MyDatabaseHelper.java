@@ -149,7 +149,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         }
         return list;
     }
-    public List<Expense> getAllExpense() {
+    public List<Expense> getAllExpense(int id) {
         final String query = "SELECT * FROM " + TABLE_NAME_Expense;
         SQLiteDatabase db = this.getReadableDatabase();
         final List<Expense> list = new ArrayList<>();

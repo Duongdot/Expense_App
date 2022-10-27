@@ -21,6 +21,7 @@ import com.Duong.Expense.Database.MyDatabaseHelper;
 import com.Duong.Expense.Object.Expense;
 import com.Duong.Expense.Object.Trip;
 import com.Duong.Expense.R;
+import com.Duong.Expense.TripActivity.TripActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;

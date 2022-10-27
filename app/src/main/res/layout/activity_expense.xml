@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorAccent"
     tools:context=".ExpenseActivity.ExpenseActivity">
-
-
 <!--    <androidx.recyclerview.widget.RecyclerView-->
 <!--        android:id="@+id/recyclerView"-->
 <!--        android:layout_width="match_parent"-->
@@ -35,6 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:text="Trip name 1"
+            android:textColor="#FEFEFE"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -56,7 +56,7 @@
             android:layout_marginTop="-1dp"
             android:layout_toEndOf="@+id/textView18"
             android:text="Location"
-            android:textColor="#757575"
+            android:textColor="#FEFEFE"
             android:textSize="17sp"
             android:textStyle="bold" />
 
@@ -71,7 +71,7 @@
 
             android:layout_toEndOf="@+id/textView10"
             android:text="18 Oct 2022"
-            android:textColor="#757575"
+            android:textColor="#FEFEFE"
             android:textSize="17sp"
             android:textStyle="bold" />
 
@@ -86,7 +86,7 @@
 
             android:layout_toEndOf="@+id/textView11"
             android:text="18 Oct 2022"
-            android:textColor="#757575"
+            android:textColor="#FEFEFE"
             android:textSize="17sp"
             android:textStyle="bold" />
 
@@ -102,7 +102,7 @@
 
             android:layout_toEndOf="@+id/textView11"
             android:text="Yes/No"
-            android:textColor="#757575"
+            android:textColor="#FEFEFE"
             android:textSize="17sp"
             android:textStyle="bold" />
 
@@ -117,7 +117,7 @@
 
             android:layout_toEndOf="@+id/textView11"
             android:text="description"
-            android:textColor="#757575"
+            android:textColor="#FEFEFE"
             android:textSize="17sp"
             android:textStyle="bold" />
 
@@ -133,7 +133,7 @@
             android:layout_marginBottom="0dp"
             android:layout_toEndOf="@+id/imageView4"
             android:text="Start date:"
-            android:textColor="#757575"
+            android:textColor="#FEFEFE"
             android:textSize="15sp" />
 
         <TextView
@@ -147,7 +147,7 @@
             android:layout_marginTop="1dp"
             android:layout_toEndOf="@+id/imageView3"
             android:text="Location:"
-            android:textColor="#757575"
+            android:textColor="#FEFEFE"
             android:textSize="15sp" />
 
 
@@ -163,7 +163,7 @@
             android:layout_marginBottom="1dp"
             android:layout_toEndOf="@+id/imageView5"
             android:text="End date:"
-            android:textColor="#757575"
+            android:textColor="#FEFEFE"
             android:textSize="15sp" />
 
         <TextView
@@ -179,7 +179,7 @@
             android:layout_toEndOf="@+id/imageView"
 
             android:text="Risk:"
-            android:textColor="#757575"
+            android:textColor="#FEFEFE"
             android:textSize="15sp" />
 
         <TextView
@@ -196,8 +196,9 @@
 
 
             android:text="Description: "
-            android:textColor="#757575"
+            android:textColor="#FEFEFE"
             android:textSize="15sp" />
+
         <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
@@ -212,8 +213,9 @@
 
 
             android:text="Total Expense: "
-            android:textColor="#757575"
+            android:textColor="#FEFEFE"
             android:textSize="15sp" />
+
         <TextView
             android:id="@+id/Total_expense"
             android:layout_width="wrap_content"
@@ -226,10 +228,10 @@
             android:layout_marginBottom="1dp"
             android:layout_toEndOf="@+id/textView5"
 
-            android:textStyle="bold"
             android:text="VND"
-            android:textColor="#757575"
-            android:textSize="15sp" />
+            android:textColor="#FEFEFE"
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/imageView4"

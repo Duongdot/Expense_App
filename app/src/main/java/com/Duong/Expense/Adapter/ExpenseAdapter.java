@@ -2,6 +2,7 @@ package com.Duong.Expense.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,17 +54,17 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHo
         Expense expense = expenses.get(position);
 
         String types = expense.getTypeExpense();
-        String amount = String.valueOf(expense.getAmount());
+        float amount = expense.getAmount();
         String date = expense.getDate();
-        String note = expense.getDate();
+//        String note = expense.getNote();
         String des = expense.getDestinationExpense();
 //        String currency = expense.getCurrency();
 
         holder.type.setText(types);
 //        holder.currency.setText(money + " " + currency.substring(currency.length() - 3)); // amount and currency
         holder.expenseDate.setText(date);
-        holder.expenseAmount.setText(amount);
-        holder.expenseNote.setText(note);
+        holder.expenseAmount.setText(String.valueOf(amount));
+//        holder.expenseNote.setText(note);
         holder.des.setText(des);
 
         holder.deleteExpense.setOnClickListener(v -> deleteExpense(expense, expense.getId()));
@@ -110,22 +111,21 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHo
         TextView type, expenseDate, expenseNote, expenseAmount, des;
         LinearLayout mainLayoutExpense;
 
-
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             type = itemView.findViewById(R.id.TypeExpense);
-
+//            expenseNote = itemView.findViewById(R.id.Note);
             expenseDate = itemView.findViewById(R.id.date);
-            expenseAmount = itemView.findViewById(R.id.amount);
-            des = itemView.findViewById(R.id.ExpenseDestination);
+            expenseAmount = itemView.findViewById(R.id.amountAdapter);
+            des = itemView.findViewById(R.id.DestinationAdapter);
             updateExpense = itemView.findViewById(R.id.imageViewEditExpense);
             deleteExpense = itemView.findViewById(R.id.imageViewDeleteExpense);
             mainLayoutExpense = itemView.findViewById(R.id.mainLayoutExpense);
             //Animate Recyclerview
-            Animation translate_anim = AnimationUtils.loadAnimation(context, android.R.anim.fade_in);
+            //Animate Recyclerview
+            Animation translate_anim = AnimationUtils.loadAnimation(context, R.anim.translate_anim);
             mainLayoutExpense.setAnimation(translate_anim);
         }
-
     }
 }

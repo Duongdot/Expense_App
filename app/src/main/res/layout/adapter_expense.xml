@@ -5,7 +5,7 @@
     android:id="@+id/mainLayoutExpense"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".ExpenseActivity.Add_Expense_Activity"
+
     >
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -49,7 +49,7 @@
                     app:srcCompat="@drawable/ic_baseline_location_on_24" />
 
                 <TextView
-                    android:id="@+id/TripDestination"
+                    android:id="@+id/DestinationAdapter"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
@@ -107,7 +107,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/amount"
+                android:id="@+id/amountAdapter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"

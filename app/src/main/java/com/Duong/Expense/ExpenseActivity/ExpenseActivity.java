@@ -79,7 +79,7 @@ public class ExpenseActivity extends AppCompatActivity {
     }
 
     private void getDetails() {
-        //tripID.setText(String.valueOf(selectedTrip.getId()));
+//        tripID.setText(String.valueOf(selectedTrip.getId()));
         tripName.setText(selectedTrip.getName());
         destination.setText(selectedTrip.getDes());
         dateFrom.setText(selectedTrip.getDateFrom());
@@ -102,7 +102,7 @@ public class ExpenseActivity extends AppCompatActivity {
     }
 
     void displayOrNot(){
-        expenses = myDB.getAllExpense();
+        expenses = myDB.getAllExpense(selectedTrip.getId());
         if(expenses.size() == 0){
             emptyImage.setVisibility(View.VISIBLE);
             empty.setVisibility(View.VISIBLE);
