@@ -11,4 +11,12 @@
         <item>Uranus</item>
         <item>Neptune</item>
     </string-array>
+    <string-array name="typeExpense">
+        <item>Food</item>
+        <item>Shopping</item>
+        <item>Transport</item>
+        <item>Hotel</item>
+        <item>Street food</item>
+        <item>Restaurant</item>
+    </string-array>
 </resources>

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -35,8 +36,9 @@ public class Add_Expense_Activity extends AppCompatActivity {
 
     Button add_button;
     Calendar calendar;
-
-    Spinner spinnerType;
+    String[] typeExpenseList;
+    ArrayAdapter<String> adapter;
+    AutoCompleteTextView typeExpense;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -58,28 +60,13 @@ public class Add_Expense_Activity extends AppCompatActivity {
         amount = findViewById(R.id.Amount);
         des = findViewById(R.id.ExpenseDestination);
         add_button = findViewById(R.id.add_button_expense);
-        spinnerType = (Spinner) findViewById(R.id.Expense_spinner);
+        typeExpense = findViewById(R.id.itemListTypeExpense);
 
-        final ArrayList<String> arrayType = new ArrayList<String>();
-        arrayType.add("Hotel");
-        arrayType.add("Food");
-        arrayType.add("Transport");
-        arrayType.add("Shopping");
-
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, arrayType);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerType.setAdapter(arrayAdapter);
-        spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(Add_Expense_Activity.this, arrayType.get(position), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+        typeExpenseList = getResources().getStringArray(R.array.typeExpense);
+        adapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_spinner_dropdown_item, typeExpenseList
+        );
+        typeExpense.setAdapter(adapter);
 
 
         calendar = Calendar.getInstance();
@@ -128,13 +115,13 @@ public class Add_Expense_Activity extends AppCompatActivity {
 }
 
     private void checkCredentials() {
-        String type = spinnerType.getSelectedItem().toString().trim();
+        String type = typeExpense.getText().toString().trim();
         String amountInput = amount.getText().toString().trim();
         String DateExpense = dateExpense.getText().toString().trim();
 
         if (type.isEmpty()) {
-            showError(spinnerType);
-            spinnerType.requestFocus();
+            typeExpense.setError("This is a required field");
+            typeExpense.requestFocus();
         } else if (amountInput.isEmpty()) {
             showError(amount);
         } else if (DateExpense.isEmpty()) {
@@ -156,7 +143,7 @@ public class Add_Expense_Activity extends AppCompatActivity {
         expense.setDate(dateExpense.getText().toString().trim());
         expense.setNote(note.getText().toString().trim());
         expense.setDestinationExpense(des.getText().toString().trim());
-        expense.setTypeExpense(spinnerType.getSelectedItem().toString().trim());
+        expense.setTypeExpense(typeExpense.getText().toString().trim());
         expense.setTripID(selectedTrip.getId());
 
         long result = myDB.addExpense(expense);

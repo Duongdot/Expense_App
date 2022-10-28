@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
-    tools:context=".ExpenseActivity.Add_Expense_Activity">
+    tools:context=".ExpenseActivity.UpdateExpenseActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:gravity="center"
-            android:text="Add Expense"
+            android:text="Update Expense"
             android:textColor="@color/white"
             android:textSize="40dp"
             android:textStyle="bold"
@@ -29,18 +29,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-<!--        <Spinner-->
-<!--            android:id="@+id/Expense_spinner"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="55dp"-->
-<!--            android:layout_marginStart="32dp"-->
-<!--            android:layout_marginLeft="32dp"-->
-<!--            android:layout_marginEnd="32dp"-->
-<!--            android:layout_marginRight="32dp"-->
-<!--            android:hint="Type"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/textView" />-->
+        <!--        <Spinner-->
+        <!--            android:id="@+id/Expense_spinner"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="55dp"-->
+        <!--            android:layout_marginStart="32dp"-->
+        <!--            android:layout_marginLeft="32dp"-->
+        <!--            android:layout_marginEnd="32dp"-->
+        <!--            android:layout_marginRight="32dp"-->
+        <!--            android:hint="Type"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/textView" />-->
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/Expense_spinner"
@@ -54,7 +54,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView">
             <AutoCompleteTextView
-                android:id="@+id/itemListTypeExpense"
+                android:id="@+id/itemListTypeExpenses"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"/>
@@ -75,7 +75,7 @@
             app:startIconDrawable="@drawable/ic_baseline_attach_money_24">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/Amount"
+                android:id="@+id/amountExpense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number" />
@@ -118,7 +118,7 @@
             app:startIconDrawable="@drawable/ic_baseline_edit_note_24">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/Note"
+                android:id="@+id/comments"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text" />
@@ -140,7 +140,7 @@
             app:startIconDrawable="@drawable/ic_baseline_calendar_month_24">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/dateFromExpense"
+                android:id="@+id/expenseDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="false"
@@ -152,17 +152,30 @@
 
 
         <Button
-            android:id="@+id/add_button_expense"
+            android:id="@+id/btnSave"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginTop="28dp"
             android:background="@drawable/btn"
-            android:text="Add"
+            android:text="Save"
             android:textAllCaps="false"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textExpenseNoteLayout" />
+        <Button
+            android:id="@+id/Cancel_button_expense"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/btn"
+            android:backgroundTint="@color/red"
+            android:text="Cancel"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnSave" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -153,7 +153,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         final String query = String.format(
                 "SELECT b.%s, %s, %s, %s, %s, %s, %s FROM " +
                         "%s a, %s b WHERE a.%s = b.%s AND b.%s = %s ORDER BY b.%s DESC",
-                COLUMN_ID, COLUMN_TYPE, AMOUNT_COLUMN, DATE_COLUMN, COMMENT_COLUMN, LOCATION_COLUMN, TRIP_ID_COLUMN, TABLE_NAME, TABLE_NAME_Expense, COLUMN_ID, TRIP_ID_COLUMN, TRIP_ID_COLUMN, id, COLUMN_ID
+                COLUMN_ID, COLUMN_TYPE, AMOUNT_COLUMN, LOCATION_COLUMN,DATE_COLUMN, COMMENT_COLUMN, TRIP_ID_COLUMN, TABLE_NAME, TABLE_NAME_Expense, COLUMN_ID, TRIP_ID_COLUMN, TRIP_ID_COLUMN, id, COLUMN_ID
         );
         //final String query = "SELECT * FROM " + TABLE_NAME_Expense;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -165,11 +165,12 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 do {
                     Expense expense = new Expense();
                     expense.setId(cursor.getInt(0));
-                    expense.setAmount(cursor.getFloat(1));
-                    expense.setTypeExpense(cursor.getString(2));
-                    expense.setDate(cursor.getString(3));
-                    expense.setNote(cursor.getString(4));
-                    expense.setDestinationExpense(cursor.getString(5));
+                    expense.setTypeExpense(cursor.getString(1));
+                    expense.setAmount(cursor.getFloat(2));
+                    expense.setDestinationExpense(cursor.getString(3));
+                    expense.setDate(cursor.getString(4));
+                    expense.setNote(cursor.getString(5));
+
                     // Adding object to list
                     list.add(expense);
                 } while (cursor.moveToNext());

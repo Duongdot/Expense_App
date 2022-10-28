@@ -8,7 +8,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import androidx.appcompat.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -31,6 +33,7 @@ public class TripActivity extends AppCompatActivity {
     FloatingActionButton add_button;
     ImageView empty_imageview;
     TextView no_data;
+    SearchView searchView;
 
     MyDatabaseHelper myDB;
     List<Trip> trips;
@@ -41,6 +44,7 @@ public class TripActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip);
 
+        searchView = findViewById(R.id.searchView);
         recyclerView = findViewById(R.id.recyclerView);
         add_button = findViewById(R.id.Floating_Add_button);
         empty_imageview = findViewById(R.id.empty_imageview);
@@ -52,6 +56,20 @@ public class TripActivity extends AppCompatActivity {
                 startActivity(intent);
             }
 
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                tripAdapter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                tripAdapter.getFilter().filter(newText);
+                return false;
+            }
         });
 
         myDB = new MyDatabaseHelper(TripActivity.this);

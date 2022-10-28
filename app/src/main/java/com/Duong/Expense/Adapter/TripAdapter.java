@@ -1,5 +1,6 @@
 package com.Duong.Expense.Adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,13 +31,15 @@ import com.Duong.Expense.TripActivity.TripActivity;
 import com.Duong.Expense.TripActivity.UpdateActivity;
 //import com.Duong.Expense.TripActivity.UpdateActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> {
+public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> implements Filterable {
 
     private final Context context;
     private final Activity activity;
-    private final List<Trip> trips;
+    private List<Trip> trips;
+    private final List<Trip> OldTrips;
 
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
@@ -43,6 +48,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
         this.activity = activity;
         this.context = context;
         this.trips = trips;
+        this.OldTrips = trips;
     }
 
     @NonNull
@@ -132,6 +138,8 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
         return trips.size();
     }
 
+
+
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         ImageView editTrip, deleteTrip;
@@ -153,7 +161,42 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
             Animation translate_anim = AnimationUtils.loadAnimation(context, R.anim.translate_anim);
             mainLayout.setAnimation(translate_anim);
         }
-
     }
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String strSearch = charSequence.toString();
+                if (strSearch.isEmpty()) {
+                    trips = OldTrips;
+                } else {
+                    List<Trip> list = new ArrayList<>();
+                    for (Trip trip : OldTrips) {
+                        if (trip.getName().toLowerCase().contains(strSearch.toLowerCase())) {
+                            list.add(trip);
+                        }
+//                        else if (trip.getDateFrom().toLowerCase().contains(strSearch.toLowerCase())) {
+//                            list.add(trip);
+//                        }
+//                        else if (trip.getDes().toLowerCase().contains(strSearch.toLowerCase())) {
+//                            list.add(trip);
+//                        }
 
+                    }
+                    trips = list;
+                }
+                FilterResults result = new FilterResults();
+                result.values = trips;
+                return result;
+            }
+
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                trips = (List<Trip>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
 }

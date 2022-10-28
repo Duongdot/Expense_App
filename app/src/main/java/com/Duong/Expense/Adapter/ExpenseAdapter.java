@@ -20,6 +20,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.Duong.Expense.Database.MyDatabaseHelper;
+import com.Duong.Expense.ExpenseActivity.UpdateExpenseActivity;
 import com.Duong.Expense.Object.Expense;
 import com.Duong.Expense.R;
 
@@ -54,27 +55,53 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHo
         Expense expense = expenses.get(position);
 
         String types = expense.getTypeExpense();
-        float amount = expense.getAmount();
+        Float amount = expense.getAmount();
         String date = expense.getDate();
 //        String note = expense.getNote();
         String des = expense.getDestinationExpense();
-//        String currency = expense.getCurrency();
 
         holder.type.setText(types);
-//        holder.currency.setText(money + " " + currency.substring(currency.length() - 3)); // amount and currency
         holder.expenseDate.setText(date);
         holder.expenseAmount.setText(String.valueOf(amount));
 //        holder.expenseNote.setText(note);
         holder.des.setText(des);
 
         holder.deleteExpense.setOnClickListener(v -> deleteExpense(expense, expense.getId()));
-//        holder.updateExpense.setOnClickListener(v -> {
-//            Intent intent = new Intent(context, UpdateExpenseActivity.class);
-//            intent.putExtra("selectedExpense", expense);
-//            activity.startActivityForResult(intent, 1);
-//        });
-
+        holder.updateExpense.setOnClickListener(v -> {
+            Intent intent = new Intent(context, UpdateExpenseActivity.class);
+            intent.putExtra("selectedExpense", expense);
+            activity.startActivityForResult(intent, 1);
+        });
+//        holder.mainLayoutExpense.setOnClickListener(v -> showDetailExpense(expense));
     }
+
+//    private void showDetailExpense(Expense expense) {
+//        dialogBuilder = new AlertDialog.Builder(context);
+//        final View contentPopUp = activity.getLayoutInflater().inflate(R.layout.popup,null);
+//
+//        typeExpense = contentPopUp.findViewById(R.id.TypeExpense);
+//        amountExpense = contentPopUp.findViewById(R.id.Amount);
+//        unitCurrency = contentPopUp.findViewById(R.id.CurrencyUnit);
+//        dateExpense = contentPopUp.findViewById(R.id.Date);
+//        commentExpense = contentPopUp.findViewById(R.id.comments);
+//
+//        typeExpense.setText(expense.getTypeExpense());
+//        amountExpense.setText(String.valueOf(expense.getAmount()));
+//        unitCurrency.setText(expense.getCurrency().substring(expense.getCurrency().length() - 3));
+//        dateExpense.setText(expense.getDate());
+//
+//        if(expense.getComment().isEmpty()){
+//            commentExpense.setText("No comment");
+//        }
+//        else{
+//            commentExpense.setText(expense.getComment());
+//        }
+//
+//        dialogBuilder.setView(contentPopUp);
+//        dialog = dialogBuilder.create();
+//        dialog.show();
+//
+//    }
 
     private void deleteExpense(Expense expense, Integer id) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -113,11 +140,10 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHo
 
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
-
             type = itemView.findViewById(R.id.TypeExpense);
 //            expenseNote = itemView.findViewById(R.id.Note);
             expenseDate = itemView.findViewById(R.id.date);
-            expenseAmount = itemView.findViewById(R.id.amountAdapter);
+            expenseAmount = itemView.findViewById(R.id.AmountAdapter);
             des = itemView.findViewById(R.id.DestinationAdapter);
             updateExpense = itemView.findViewById(R.id.imageViewEditExpense);
             deleteExpense = itemView.findViewById(R.id.imageViewDeleteExpense);

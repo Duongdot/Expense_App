@@ -15,8 +15,13 @@
             />
         <activity
             android:name="com.Duong.Expense.ExpenseActivity.ExpenseActivity"
-            android:exported="true"/>
+            android:exported="true"
+            android:parentActivityName=".ExpenseActivity.ExpenseActivity"/>
+        <activity
+            android:name="com.Duong.Expense.ExpenseActivity.UpdateExpenseActivity"
+            android:parentActivityName="com.Duong.Expense.ExpenseActivity.ExpenseActivity" />
 
+            <!--trip -->
         <activity
             android:name="com.Duong.Expense.TripActivity.UpdateActivity"
             android:parentActivityName="com.Duong.Expense.TripActivity.TripActivity" />

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,6 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         android:background="#3fff"
         android:gravity="center"
         android:orientation="vertical"
@@ -52,20 +53,19 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textTripDestinationLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="32dp"
             android:hint="Trip Destination"
             android:textColorHint="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textTripNameLayout"
-            app:startIconDrawable="@drawable/ic_baseline_location_on_24"
-            >
+            app:startIconDrawable="@drawable/ic_baseline_location_on_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/TripDestination"
@@ -79,14 +79,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="32dp"
             android:hint="From"
             android:textColorHint="#6F6A6A"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textTripDestinationLayout"
-            app:startIconDrawable="@drawable/ic_baseline_calendar_month_24"
-            >
+            app:startIconDrawable="@drawable/ic_baseline_calendar_month_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/dateFrom"
@@ -104,14 +104,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="32dp"
             android:hint="End"
             android:textColorHint="#6F6A6A"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layoutDateFrom"
-            app:startIconDrawable="@drawable/ic_baseline_calendar_month_24"
-            >
+            app:startIconDrawable="@drawable/ic_baseline_calendar_month_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/dateEnd"
@@ -130,6 +130,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="32dp"
             android:hint="Trip Description"
             android:textColorHint="@color/white"
@@ -137,8 +138,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layoutDateEnd"
             app:layout_constraintVertical_chainStyle="packed"
-            app:startIconDrawable="@drawable/ic_baseline_edit_note_24"
-            >
+            app:startIconDrawable="@drawable/ic_baseline_edit_note_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/TripDescription"
@@ -204,4 +204,4 @@
             app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
