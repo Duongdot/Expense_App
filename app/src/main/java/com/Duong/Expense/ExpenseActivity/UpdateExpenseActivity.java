@@ -17,6 +17,8 @@ import com.Duong.Expense.Database.MyDatabaseHelper;
 import com.Duong.Expense.Object.Expense;
 import com.Duong.Expense.Object.Trip;
 import com.Duong.Expense.R;
+import com.Duong.Expense.TripActivity.TripActivity;
+import com.Duong.Expense.TripActivity.UpdateActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -28,7 +30,7 @@ public class UpdateExpenseActivity extends AppCompatActivity {
 
     AutoCompleteTextView typeExpense;
     EditText dateInput, amount, comment, Destination;
-    Button btnSave;
+    Button btnSave, btnCancel;
 
     String[] typeExpenseList;
     ArrayAdapter<String> adapter;
@@ -83,7 +85,6 @@ public class UpdateExpenseActivity extends AppCompatActivity {
                 this, android.R.layout.simple_spinner_dropdown_item, typeExpenseList
         );
         typeExpense.setAdapter(adapter);
-
         btnSave.setOnClickListener(view -> checkCredentials());
     }
 
@@ -121,13 +122,7 @@ public class UpdateExpenseActivity extends AppCompatActivity {
             Toast.makeText(getBaseContext(), "Update Successfully!", Toast.LENGTH_SHORT).show();
             onBackPressed();
             finishActivity(1);
-//            this.finish();
         }
-
-
-//        startActivity(new Intent(UpdateExpenseActivity.this, HomeActivity.class));
-//        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
-
     }
 
     private void showError(EditText input, String s) {

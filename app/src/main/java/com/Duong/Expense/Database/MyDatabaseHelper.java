@@ -114,7 +114,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_TYPE, expense.getTypeExpense());
         values.put(AMOUNT_COLUMN, expense.getAmount());
         values.put(DATE_COLUMN, expense.getDate());
-        values.put(LOCATION_COLUMN, expense.getNote());
+        values.put(LOCATION_COLUMN, expense.getDestinationExpense());
         values.put(COMMENT_COLUMN, expense.getNote());
         values.put(TRIP_ID_COLUMN, expense.getTripID());
         // Inserting Row
@@ -170,7 +170,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                     expense.setDestinationExpense(cursor.getString(3));
                     expense.setDate(cursor.getString(4));
                     expense.setNote(cursor.getString(5));
-
                     // Adding object to list
                     list.add(expense);
                 } while (cursor.moveToNext());
@@ -220,7 +219,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_TYPE, expense.getTypeExpense());
         values.put(AMOUNT_COLUMN, expense.getAmount());
         values.put(DATE_COLUMN, expense.getDate());
-        values.put(LOCATION_COLUMN, expense.getNote());
+        values.put(LOCATION_COLUMN, expense.getDestinationExpense());
         values.put(COMMENT_COLUMN, expense.getNote());
 
         return db.update(TABLE_NAME_Expense, values, "id=?", new String[]{String.valueOf(expense.getId())});

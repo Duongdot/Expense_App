@@ -18,6 +18,8 @@ import com.Duong.Expense.Database.MyDatabaseHelper;
 import com.Duong.Expense.Object.Expense;
 import com.Duong.Expense.Object.Trip;
 import com.Duong.Expense.R;
+import com.Duong.Expense.TripActivity.AddActivity;
+import com.Duong.Expense.TripActivity.TripActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -79,6 +81,7 @@ public class ExpenseActivity extends AppCompatActivity {
     }
 
     private void getDetails() {
+
         tripName.setText(selectedTrip.getName());
         destination.setText(selectedTrip.getDes());
         dateFrom.setText(selectedTrip.getDateFrom());

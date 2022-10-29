@@ -44,7 +44,6 @@ public class UpdateActivity extends AppCompatActivity {
         rdYes = findViewById(R.id.radioYes);
         rdNo = findViewById(R.id.radioNo);
         btnSave = findViewById(R.id.save_button);
-        btnCancel = findViewById(R.id.cancel_button);
 
         getAndDisplayInfo();
 
@@ -105,8 +104,10 @@ public class UpdateActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), "Failed", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(getBaseContext(), "Update Successfully!", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(UpdateActivity.this, TripActivity.class));
-                overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+//                startActivity(new Intent(UpdateActivity.this, TripActivity.class));
+//                overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+                onBackPressed();
+                finishActivity(1);
             }
         });
 
@@ -132,11 +133,5 @@ public class UpdateActivity extends AppCompatActivity {
         if (ab != null) {
             ab.setTitle(selectedTrip.getName());
         }
-
-        btnCancel = findViewById(R.id.cancel_button);
-        btnCancel.setOnClickListener(v -> {
-            startActivity(new Intent(UpdateActivity.this, TripActivity.class));
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-        });
     }
 }
