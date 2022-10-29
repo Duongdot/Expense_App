@@ -75,7 +75,6 @@ public class Add_Expense_Activity extends AppCompatActivity {
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 updateCalendar();
             }
-
             private void updateCalendar() {
                 String format = "dd MMM yyyy";
                 SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.US);
@@ -129,9 +128,11 @@ public class Add_Expense_Activity extends AppCompatActivity {
         if (result == -1) {
             Toast.makeText(getBaseContext(), "Failed", Toast.LENGTH_SHORT).show();
         } else {
+            Intent intent = new Intent(Add_Expense_Activity.this, ExpenseActivity.class);
             Toast.makeText(getBaseContext(), "Added Successfully!", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(Add_Expense_Activity.this, ExpenseActivity.class));
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            intent.putExtra("selectedTrip", selectedTrip);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.slide_in_left,android.R.anim.slide_out_right);
         }
     }
     private void showError(EditText input) {
