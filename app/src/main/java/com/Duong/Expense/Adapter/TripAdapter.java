@@ -64,7 +64,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
     // adapter get list trip
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         Trip trip = trips.get(position);
-
+        MyDatabaseHelper db = new MyDatabaseHelper(context);
         int id = trip.getId();
         String name = trip.getName();
         String des = trip.getDes();
@@ -78,16 +78,9 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
         holder.TripId.setText(String.valueOf(id));
         holder.tripDestination.setText(des);
         holder.tripDate.setText(dateFrom.concat(" - " + dateTo));
-        // select trip
-//        holder.editTrip.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //passing parameter values
-//                Intent intent = new Intent(context, UpdateActivity.class);
-//                intent.putExtra("selectedTrip", trip);
-//                activity.startActivityForResult(intent, 1);
-//            }
-//        });
+        holder.total.setText(String.valueOf(db.getTotalExpense(String.valueOf(id))));
+
+
         holder.mainLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -143,7 +136,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         ImageView editTrip, deleteTrip;
-        TextView tripName, tripDestination, tripDate, TripId ;
+        TextView tripName, tripDestination, tripDate, TripId, total ;
         LinearLayout mainLayout;
 
 
@@ -153,6 +146,8 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
             tripName = itemView.findViewById(R.id.tripName);
             tripDestination = itemView.findViewById(R.id.TripDestination);
             tripDate = itemView.findViewById(R.id.date);
+            total = itemView.findViewById(R.id.amount);
+
             deleteTrip = itemView.findViewById(R.id.imageViewDelete);
             editTrip = itemView.findViewById(R.id.imageViewEdit);
 
@@ -182,7 +177,6 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
 //                        else if (trip.getDes().toLowerCase().contains(strSearch.toLowerCase())) {
 //                            list.add(trip);
 //                        }
-
                     }
                     trips = list;
                 }
