@@ -68,7 +68,7 @@ public class AddActivity extends AppCompatActivity {
         };
 
         //Date Picker for EditText Date To
-        DatePickerDialog.OnDateSetListener datePickerTo =new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog.OnDateSetListener datePickerTo = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                     calendar.set(Calendar.YEAR, year);
