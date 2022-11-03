@@ -70,15 +70,14 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
         String des = trip.getDes();
         String dateFrom = trip.getDateFrom();
         String dateTo = trip.getDateTo();
-        String risk = trip.getRisk();
-        String desc = trip.getDesc();
+        String totalAmount = ExpenseAdapter.formatNumber(db.getTotalExpense(String.valueOf(trip.getId())));
 
         // set value to form
         holder.tripName.setText(name);
         holder.TripId.setText(String.valueOf(id));
         holder.tripDestination.setText(des);
         holder.tripDate.setText(dateFrom.concat(" - " + dateTo));
-        holder.total.setText(String.valueOf(db.getTotalExpense(String.valueOf(id))));
+        holder.total.setText(totalAmount);
 
 
         holder.mainLayout.setOnClickListener(new View.OnClickListener() {

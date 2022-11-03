@@ -28,6 +28,7 @@ import java.util.List;
 public class ExpenseActivity extends AppCompatActivity {
     TextView tripName, destination, dateFrom, dateTo, tripRisk, empty, total, desc;
     Trip selectedTrip;
+    Expense selectedExpense;
 
     FloatingActionButton btnAdd;
     ImageView emptyImage;
@@ -47,6 +48,7 @@ public class ExpenseActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         selectedTrip = (Trip) intent.getSerializableExtra("selectedTrip");
+        selectedExpense = (Expense) intent.getSerializableExtra("selectedExpense");
 
 
         tripName = findViewById(R.id.tripName);
@@ -103,6 +105,7 @@ public class ExpenseActivity extends AppCompatActivity {
 
     void displayOrNot(){
         expenses = myDB.getAllExpense(selectedTrip.getId());
+
         if(expenses.size() == 0){
             emptyImage.setVisibility(View.VISIBLE);
             empty.setVisibility(View.VISIBLE);
