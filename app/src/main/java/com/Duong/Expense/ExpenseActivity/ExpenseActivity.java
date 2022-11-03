@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,15 +21,16 @@ import com.Duong.Expense.Database.MyDatabaseHelper;
 import com.Duong.Expense.Object.Expense;
 import com.Duong.Expense.Object.Trip;
 import com.Duong.Expense.R;
+import com.Duong.Expense.TripActivity.TripActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ExpenseActivity extends AppCompatActivity {
     TextView tripName, destination, dateFrom, dateTo, tripRisk, empty, total, desc;
     Trip selectedTrip;
-    Expense selectedExpense;
 
     FloatingActionButton btnAdd;
     ImageView emptyImage;
@@ -38,17 +40,19 @@ public class ExpenseActivity extends AppCompatActivity {
     RecyclerView recyclerView;
 
     MyDatabaseHelper myDB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expense);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Expense List");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         Intent intent = getIntent();
         selectedTrip = (Trip) intent.getSerializableExtra("selectedTrip");
-        selectedExpense = (Expense) intent.getSerializableExtra("selectedExpense");
 
 
         tripName = findViewById(R.id.tripName);
@@ -61,7 +65,6 @@ public class ExpenseActivity extends AppCompatActivity {
         total = findViewById(R.id.Total_expense);
         empty = findViewById(R.id.no_data_Expense);
         emptyImage = findViewById(R.id.empty_imageview_Expense);
-
         recyclerView = findViewById(R.id.recyclerViewExpense);
 
         myDB = new MyDatabaseHelper(ExpenseActivity.this);
@@ -69,7 +72,7 @@ public class ExpenseActivity extends AppCompatActivity {
 
         displayOrNot();
 
-        expenseAdapter = new ExpenseAdapter(ExpenseActivity.this,this, expenses);
+        expenseAdapter = new ExpenseAdapter(ExpenseActivity.this, this, expenses);
         recyclerView.setAdapter(expenseAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(ExpenseActivity.this));
 
@@ -80,6 +83,15 @@ public class ExpenseActivity extends AppCompatActivity {
             startActivity(intents);
         });
         getDetails();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            startActivity(new Intent(this, TripActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void getDetails() {
@@ -98,21 +110,25 @@ public class ExpenseActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1){
+        if (requestCode == 1) {
             recreate();
         }
     }
 
-    void displayOrNot(){
+    void displayOrNot() {
         expenses = myDB.getAllExpense(selectedTrip.getId());
-
-        if(expenses.size() == 0){
+        if (expenses.size() == 0) {
             emptyImage.setVisibility(View.VISIBLE);
             empty.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             emptyImage.setVisibility(View.GONE);
             empty.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, TripActivity.class));
     }
 
     @Override
