@@ -1,5 +1,7 @@
 package com.Duong.Expense.ExpenseActivity;
 
+import static com.Duong.Expense.Adapter.ExpenseAdapter.formatNumber;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,8 +20,6 @@ import com.Duong.Expense.Database.MyDatabaseHelper;
 import com.Duong.Expense.Object.Expense;
 import com.Duong.Expense.Object.Trip;
 import com.Duong.Expense.R;
-import com.Duong.Expense.TripActivity.AddActivity;
-import com.Duong.Expense.TripActivity.TripActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -90,8 +90,7 @@ public class ExpenseActivity extends AppCompatActivity {
         desc.setText(selectedTrip.getDesc());
 
         Float totalExpenses = myDB.getTotalExpense(String.valueOf(selectedTrip.getId()));
-
-        total.setText(totalExpenses + " " + "USD");
+        total.setText(formatNumber(totalExpenses) + " " + "USD");
     }
 
     @Override

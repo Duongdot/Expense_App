@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Range;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,6 +26,7 @@ import com.Duong.Expense.Object.Trip;
 import com.Duong.Expense.R;
 import com.Duong.Expense.TripActivity.TripActivity;
 
+import java.awt.font.NumericShaper;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
@@ -106,7 +108,8 @@ public class Add_Expense_Activity extends AppCompatActivity {
             typeExpense.requestFocus();
         } else if (amountInput.isEmpty()) {
             showError(amount);
-        } else if (DateExpense.isEmpty()) {
+        }
+        else if (DateExpense.isEmpty()) {
             showError(dateExpense);
         } else {
             addExpense();

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -21,6 +20,7 @@ import com.Duong.Expense.Object.Trip;
 import com.Duong.Expense.R;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 
@@ -108,12 +108,21 @@ public class AddActivity extends AppCompatActivity {
             showError(DateFrom_input);
         } else if (dateT.isEmpty()) {
             showError(DateTo_input);
-        }else if (Description.isEmpty()) {
+        }else if (new Date(dateF).after(new Date(dateT))){
+            showErrorDate(DateTo_input);
+        }
+        else if (Description.isEmpty()) {
             showError(desc_input);
         } else {
             addTrip();
         }
     }
+
+    private void showErrorDate(EditText dateTo_input) {
+        dateTo_input.setError("Date invalid");
+        dateTo_input.requestFocus();
+    }
+
 
     private void addTrip() {
         MyDatabaseHelper myDB = new MyDatabaseHelper(AddActivity.this);

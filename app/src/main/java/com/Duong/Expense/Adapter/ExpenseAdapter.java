@@ -25,7 +25,11 @@ import com.Duong.Expense.ExpenseActivity.UpdateExpenseActivity;
 import com.Duong.Expense.Object.Expense;
 import com.Duong.Expense.R;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHolder> {
 
@@ -56,7 +60,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHo
         Expense expense = expenses.get(position);
 
         String types = expense.getTypeExpense();
-        Float amount = expense.getAmount();
+        String amount = formatNumber(expense.getAmount());
         String date = expense.getDate();
         String des = expense.getDestinationExpense();
 
@@ -86,7 +90,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHo
         commentExpense = contentPopUp.findViewById(R.id.commentsPopup);
 
         typeExpense.setText(expense.getTypeExpense());
-        amountExpense.setText(String.valueOf(expense.getAmount()));
+        amountExpense.setText(formatNumber(expense.getAmount()));
         dateExpense.setText(expense.getDate());
 
         if(expense.getNote().isEmpty()){
@@ -149,4 +153,11 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHo
             mainLayoutExpense.setAnimation(translate_anim);
         }
     }
+        public static String formatNumber(Float amount) {
+            DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
+            DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
+            symbols.setGroupingSeparator(' ');
+            formatter.setDecimalFormatSymbols(symbols);
+            return formatter.format(amount);
+        }
 }
