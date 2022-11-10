@@ -41,9 +41,6 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
     private List<Trip> trips;
     private final List<Trip> OldTrips;
 
-    private AlertDialog.Builder dialogBuilder;
-    private AlertDialog dialog;
-
     public TripAdapter(Activity activity, Context context, List<Trip> trips) {
         this.activity = activity;
         this.context = context;
@@ -65,7 +62,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         Trip trip = trips.get(position);
         MyDatabaseHelper db = new MyDatabaseHelper(context);
-        int id = trip.getId();
+//        int id = trip.getId();
         String name = trip.getName();
         String des = trip.getDes();
         String dateFrom = trip.getDateFrom();
@@ -74,7 +71,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
 
         // set value to form
         holder.tripName.setText(name);
-        holder.TripId.setText(String.valueOf(id));
+//        holder.TripId.setText(String.valueOf(id));
         holder.tripDestination.setText(des);
         holder.tripDate.setText(dateFrom.concat(" - " + dateTo));
         holder.total.setText(totalAmount);
@@ -135,13 +132,13 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         ImageView editTrip, deleteTrip;
-        TextView tripName, tripDestination, tripDate, TripId, total ;
+        TextView tripName, tripDestination, tripDate, total ;
         LinearLayout mainLayout;
 
 
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            TripId = itemView.findViewById(R.id.TripID);
+//            TripId = itemView.findViewById(R.id.TripID);
             tripName = itemView.findViewById(R.id.tripName);
             tripDestination = itemView.findViewById(R.id.TripDestination);
             tripDate = itemView.findViewById(R.id.date);
@@ -170,12 +167,12 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
                         if (trip.getName().toLowerCase().contains(strSearch.toLowerCase())) {
                             list.add(trip);
                         }
-//                        else if (trip.getDateFrom().toLowerCase().contains(strSearch.toLowerCase())) {
-//                            list.add(trip);
-//                        }
-//                        else if (trip.getDes().toLowerCase().contains(strSearch.toLowerCase())) {
-//                            list.add(trip);
-//                        }
+                        else if (trip.getDateFrom().toLowerCase().contains(strSearch.toLowerCase())) {
+                            list.add(trip);
+                        }
+                        else if (trip.getDes().toLowerCase().contains(strSearch.toLowerCase())) {
+                            list.add(trip);
+                        }
                     }
                     trips = list;
                 }
