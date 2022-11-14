@@ -181,9 +181,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     public ArrayList<String> DownloadFile(int id) {
         final String query = String.format(
-                "SELECT b.%s, %s, %s, %s, %s, %s, %s FROM " +
+                "SELECT b.%s, %s, %s, %s, %s, %s, %s, %s FROM " +
                         "%s a, %s b WHERE a.%s = b.%s AND b.%s = %s ORDER BY b.%s DESC",
-                COLUMN_ID, COLUMN_TYPE, AMOUNT_COLUMN, LOCATION_COLUMN, DATE_COLUMN, COMMENT_COLUMN, TRIP_ID_COLUMN, TABLE_NAME, TABLE_NAME_Expense, COLUMN_ID, TRIP_ID_COLUMN, TRIP_ID_COLUMN, id, COLUMN_ID
+                COLUMN_ID, COLUMN_NAME,COLUMN_TYPE, AMOUNT_COLUMN, LOCATION_COLUMN, DATE_COLUMN, COMMENT_COLUMN, TRIP_ID_COLUMN, TABLE_NAME, TABLE_NAME_Expense, COLUMN_ID, TRIP_ID_COLUMN, TRIP_ID_COLUMN, id, COLUMN_ID
         );
         SQLiteDatabase db = this.getReadableDatabase();
         final ArrayList<String> list = new ArrayList<>();
@@ -195,19 +195,22 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 JsonFormat.append("\n{\n\t\"").append(cursor.getString(0)).append("\":[");
                 do {
                     String type = cursor.getString(1);
-                    String amount = String.valueOf(cursor.getFloat(2));
-                    String Location = cursor.getString(3);
-                    String date = cursor.getString(4);
-                    String comments = cursor.getString(5);
+                    String TripName = cursor.getString(2);
+                    String amount = String.valueOf(cursor.getFloat(3));
+                    String Location = cursor.getString(4);
+                    String date = cursor.getString(5);
+                    String comments = cursor.getString(6);
                     if (!cursor.isLast()) {
-                        JsonFormat.append("\n\t\t{\n\t\t\t\"expense\":" + "\"").append(type).append("\",\n");
+                        JsonFormat.append("\n\t\t{\n\t\t\t\"NameTrip\":" + "\"").append(type).append("\",\n");
+                        JsonFormat.append("\t\t\t\"expense\":" + "\"").append(TripName).append("\",\n");
                         JsonFormat.append("\t\t\t\"amount\":" + "\"").append(amount).append("\",\n");
                         JsonFormat.append("\t\t\t\"date\":" + "\"").append(date).append("\",\n");
                         JsonFormat.append("\t\t\t\"Location\":" + "\"").append(Location).append("\",\n");
                         JsonFormat.append("\t\t\t\"comments\":" + "\"").append(comments).append("\"\n");
                         JsonFormat.append("\t\t},");
                     } else {
-                        JsonFormat.append("\n\t\t{\n\t\t\t\"expense\":" + "\"").append(type).append("\",\n");
+                        JsonFormat.append("\n\t\t{\n\t\t\t\"NameTrip\":" + "\"").append(type).append("\",\n");
+                        JsonFormat.append("\t\t\t\"expense\":" + "\"").append(TripName).append("\",\n");
                         JsonFormat.append("\t\t\t\"amount\":" + "\"").append(amount).append("\",\n");
                         JsonFormat.append("\t\t\t\"date\":" + "\"").append(date).append("\",\n");
                         JsonFormat.append("\t\t\t\"Location\":" + "\"").append(Location).append("\",\n");

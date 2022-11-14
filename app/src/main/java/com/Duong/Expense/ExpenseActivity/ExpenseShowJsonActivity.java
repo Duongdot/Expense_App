@@ -12,6 +12,7 @@ import com.Duong.Expense.R;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ExpenseShowJsonActivity extends AppCompatActivity {
 
@@ -23,7 +24,7 @@ public class ExpenseShowJsonActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expense_show_json);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         showJson = findViewById(R.id.ShowJson);
 
         SaveList = readFile(FileName);
