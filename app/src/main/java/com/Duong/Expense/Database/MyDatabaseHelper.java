@@ -36,14 +36,13 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public static final String DATE_COLUMN = "Date";
     public static final String COMMENT_COLUMN = "Note";
     public static final String LOCATION_COLUMN = "ExpenseDestination";
-//    public static final String IMAGE_COLUMN = "image";
+    //    public static final String IMAGE_COLUMN = "image";
     public static final String TRIP_ID_COLUMN = "trip_Id";
 
     public MyDatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
     }
-
 
 
     @Override
@@ -84,7 +83,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 COMMENT_COLUMN + " TEXT, " +
                 LOCATION_COLUMN + " TEXT, " +
                 TRIP_ID_COLUMN + " INTEGER, " +
-                " FOREIGN KEY ("+TRIP_ID_COLUMN+") REFERENCES "+TABLE_NAME+"("+COLUMN_ID+"));";
+                " FOREIGN KEY (" + TRIP_ID_COLUMN + ") REFERENCES " + TABLE_NAME + "(" + COLUMN_ID + "));";
         db.execSQL(query);
     }
 
@@ -149,11 +148,12 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         }
         return list;
     }
+
     public List<Expense> getAllExpense(int id) {
         final String query = String.format(
                 "SELECT b.%s, %s, %s, %s, %s, %s, %s FROM " +
                         "%s a, %s b WHERE a.%s = b.%s AND b.%s = %s ORDER BY b.%s DESC",
-                COLUMN_ID, COLUMN_TYPE, AMOUNT_COLUMN, LOCATION_COLUMN,DATE_COLUMN, COMMENT_COLUMN, TRIP_ID_COLUMN, TABLE_NAME, TABLE_NAME_Expense, COLUMN_ID, TRIP_ID_COLUMN, TRIP_ID_COLUMN, id, COLUMN_ID
+                COLUMN_ID, COLUMN_TYPE, AMOUNT_COLUMN, LOCATION_COLUMN, DATE_COLUMN, COMMENT_COLUMN, TRIP_ID_COLUMN, TABLE_NAME, TABLE_NAME_Expense, COLUMN_ID, TRIP_ID_COLUMN, TRIP_ID_COLUMN, id, COLUMN_ID
         );
         SQLiteDatabase db = this.getReadableDatabase();
         final List<Expense> list = new ArrayList<>();
@@ -178,7 +178,53 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         }
         return list;
     }
-    public Float getTotalExpense(String id){
+
+    public ArrayList<String> DownloadFile(int id) {
+        final String query = String.format(
+                "SELECT b.%s, %s, %s, %s, %s, %s, %s FROM " +
+                        "%s a, %s b WHERE a.%s = b.%s AND b.%s = %s ORDER BY b.%s DESC",
+                COLUMN_ID, COLUMN_TYPE, AMOUNT_COLUMN, LOCATION_COLUMN, DATE_COLUMN, COMMENT_COLUMN, TRIP_ID_COLUMN, TABLE_NAME, TABLE_NAME_Expense, COLUMN_ID, TRIP_ID_COLUMN, TRIP_ID_COLUMN, id, COLUMN_ID
+        );
+        SQLiteDatabase db = this.getReadableDatabase();
+        final ArrayList<String> list = new ArrayList<>();
+        final Cursor cursor;
+        if (db != null) {
+            cursor = db.rawQuery(query, null);
+            StringBuilder JsonFormat = new StringBuilder();
+            if (cursor.moveToFirst()) {
+                JsonFormat.append("\n{\n\t\"").append(cursor.getString(0)).append("\":[");
+                do {
+                    String type = cursor.getString(1);
+                    String amount = String.valueOf(cursor.getFloat(2));
+                    String Location = cursor.getString(3);
+                    String date = cursor.getString(4);
+                    String comments = cursor.getString(5);
+                    if (!cursor.isLast()) {
+                        JsonFormat.append("\n\t\t{\n\t\t\t\"expense\":" + "\"").append(type).append("\",\n");
+                        JsonFormat.append("\t\t\t\"amount\":" + "\"").append(amount).append("\",\n");
+                        JsonFormat.append("\t\t\t\"date\":" + "\"").append(date).append("\",\n");
+                        JsonFormat.append("\t\t\t\"Location\":" + "\"").append(Location).append("\",\n");
+                        JsonFormat.append("\t\t\t\"comments\":" + "\"").append(comments).append("\"\n");
+                        JsonFormat.append("\t\t},");
+                    } else {
+                        JsonFormat.append("\n\t\t{\n\t\t\t\"expense\":" + "\"").append(type).append("\",\n");
+                        JsonFormat.append("\t\t\t\"amount\":" + "\"").append(amount).append("\",\n");
+                        JsonFormat.append("\t\t\t\"date\":" + "\"").append(date).append("\",\n");
+                        JsonFormat.append("\t\t\t\"Location\":" + "\"").append(Location).append("\",\n");
+                        JsonFormat.append("\t\t\t\"comments\":" + "\"").append(comments).append("\"\n");
+                        JsonFormat.append("\t\t}");
+                    }
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            JsonFormat.append("\n\t]\n}");
+            list.add(JsonFormat.toString());
+            db.close();
+        }
+        return list;
+    }
+
+    public Float getTotalExpense(String id) {
         Float total = 0f;
         String query = "SELECT " + AMOUNT_COLUMN + " FROM " + TABLE_NAME_Expense + " WHERE " + TRIP_ID_COLUMN + " = " + id;
 

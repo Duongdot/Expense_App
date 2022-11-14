@@ -5,16 +5,12 @@ import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Range;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -24,12 +20,10 @@ import com.Duong.Expense.Database.MyDatabaseHelper;
 import com.Duong.Expense.Object.Expense;
 import com.Duong.Expense.Object.Trip;
 import com.Duong.Expense.R;
-import com.Duong.Expense.TripActivity.TripActivity;
 
-import java.awt.font.NumericShaper;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Objects;
 
 public class Add_Expense_Activity extends AppCompatActivity {
     EditText dateExpense, amount, note, des;
@@ -48,7 +42,7 @@ public class Add_Expense_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_expense);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
         selectedTrip = (Trip) intent.getSerializableExtra("selectedTrip");

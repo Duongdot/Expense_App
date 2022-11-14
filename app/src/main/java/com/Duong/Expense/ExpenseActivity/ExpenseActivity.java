@@ -2,6 +2,7 @@ package com.Duong.Expense.ExpenseActivity;
 
 import static com.Duong.Expense.Adapter.ExpenseAdapter.formatNumber;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,8 +11,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +27,9 @@ import com.Duong.Expense.R;
 import com.Duong.Expense.TripActivity.TripActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -40,6 +46,9 @@ public class ExpenseActivity extends AppCompatActivity {
     RecyclerView recyclerView;
 
     MyDatabaseHelper myDB;
+    String FileName = "Download.txt";
+    ArrayList<String> SaveList= new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,8 +99,40 @@ public class ExpenseActivity extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home) {
             startActivity(new Intent(this, TripActivity.class));
             return true;
+        }if(item.getItemId()== R.id.delete_all){
+            confirmDialog();
+        }if (item.getItemId()== R.id.download_File){
+            try {
+                JsonDownload(selectedTrip.getId());
+            }catch (IOException e){
+                e.printStackTrace();
+            }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void JsonDownload (int id) throws IOException {
+        SaveList = myDB.DownloadFile(id);
+        if (saveFile(FileName, SaveList)){
+            Toast.makeText(this, "Export Successfully", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, ExpenseShowJsonActivity.class));
+        } else{
+            Toast.makeText(this, "Error saving file", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public boolean saveFile(String file, ArrayList<String> text) {
+        try {
+            FileOutputStream fos = openFileOutput(file, Context.MODE_PRIVATE);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(text);
+            oos.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error saving file", Toast.LENGTH_SHORT).show();
+            return false;
+        }
     }
 
     private void getDetails() {
@@ -134,7 +175,24 @@ public class ExpenseActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.my_menu, menu);
+        inflater.inflate(R.menu.menu_download, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+    private void confirmDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Delete All?");
+        builder.setMessage("Are you sure you want to delete all Data?");
+        builder.setPositiveButton("Yes", (dialogInterface, i) -> {
+            MyDatabaseHelper myDB = new MyDatabaseHelper(ExpenseActivity.this);
+            myDB.deleteAll();
+            //Refresh Activity
+            Intent intent = new Intent(ExpenseActivity.this, TripActivity.class);
+            startActivity(intent);
+            finish();
+        });
+        builder.setNegativeButton("No", (dialogInterface, i) -> {
+
+        });
+        builder.create().show();
     }
 }

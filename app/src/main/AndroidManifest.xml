@@ -3,26 +3,31 @@
 
     <application
         android:allowBackup="true"
+        android:enableOnBackInvokedCallback="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:enableOnBackInvokedCallback="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name="com.Duong.Expense.ExpenseActivity.ExpenseShowJsonActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name="com.Duong.Expense.ExpenseActivity.Add_Expense_Activity"
             android:exported="true"
-            android:parentActivityName="com.Duong.Expense.ExpenseActivity.ExpenseActivity"
-            />
+            android:parentActivityName="com.Duong.Expense.ExpenseActivity.ExpenseActivity" />
         <activity
             android:name="com.Duong.Expense.ExpenseActivity.ExpenseActivity"
             android:exported="true"
-            android:parentActivityName="com.Duong.Expense.ExpenseActivity.ExpenseActivity"/>
+            android:parentActivityName="com.Duong.Expense.ExpenseActivity.ExpenseActivity" />
         <activity
             android:name="com.Duong.Expense.ExpenseActivity.UpdateExpenseActivity"
             android:parentActivityName="com.Duong.Expense.ExpenseActivity.ExpenseActivity" />
-
-            <!--trip -->
+        <!-- trip -->
         <activity
             android:name="com.Duong.Expense.TripActivity.UpdateActivity"
             android:parentActivityName="com.Duong.Expense.TripActivity.TripActivity" />
