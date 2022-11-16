@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.Duong.Expense.Adapter.TripAdapter;
 import com.Duong.Expense.Database.MyDatabaseHelper;
+import com.Duong.Expense.Login.LoginActivity;
 import com.Duong.Expense.Object.Trip;
 import com.Duong.Expense.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -113,6 +114,8 @@ public class TripActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.delete_all){
             confirmDialog();
+        }if (item.getItemId() == R.id.Logout){
+            confirmDialogOut();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -128,6 +131,28 @@ public class TripActivity extends AppCompatActivity {
                 myDB.deleteAll();
                 //Refresh Activity
                 Intent intent = new Intent(TripActivity.this, TripActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        builder.create().show();
+    }
+    private void confirmDialogOut(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Log out?");
+        builder.setMessage("Are you sure you want Logout?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                MyDatabaseHelper myDB = new MyDatabaseHelper(TripActivity.this);
+                //Refresh Activity
+                Intent intent = new Intent(TripActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }
