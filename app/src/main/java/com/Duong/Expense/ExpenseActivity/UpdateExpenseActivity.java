@@ -1,7 +1,14 @@
 package com.Duong.Expense.ExpenseActivity;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -9,8 +16,10 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.Duong.Expense.Database.MyDatabaseHelper;
@@ -22,6 +31,7 @@ import com.Duong.Expense.TripActivity.UpdateActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 public class UpdateExpenseActivity extends AppCompatActivity {
@@ -30,7 +40,8 @@ public class UpdateExpenseActivity extends AppCompatActivity {
 
     AutoCompleteTextView typeExpense;
     EditText dateInput, amount, comment, Destination;
-    Button btnSave, btnCancel;
+    Button btnSave;
+    ImageView imageViewLocationUpdate;
 
     String[] typeExpenseList;
     ArrayAdapter<String> adapter;
@@ -86,6 +97,71 @@ public class UpdateExpenseActivity extends AppCompatActivity {
         );
         typeExpense.setAdapter(adapter);
         btnSave.setOnClickListener(view -> checkCredentials());
+        imageViewLocationUpdate = findViewById(R.id.UpdateLocation);
+        imageViewLocationUpdate.setOnClickListener(v -> whenClickLocation());
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case 1000:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1000);
+                    } else {
+                        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+                        Location Location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                        try {
+                            String city = hereLocation(Location.getLatitude(), Location.getLongitude());
+                            Destination.setText(city);
+                        } catch (Exception e) {
+                            Toast.makeText(this, "Please turn on your location", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }else {
+                    Toast.makeText(this, "Permission not granted", Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
+    }
+
+    private String hereLocation(double latitude, double longitude) {
+        String cityName = "";
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        List<Address> addresses;
+        try {
+            addresses = geocoder.getFromLocation(latitude, longitude, 10);
+            if (addresses.size() > 0) {
+                for (Address adr : addresses) {
+                    if (adr.getLocality() != null && adr.getLocality().length() > 0) {
+                        cityName = adr.getLocality();
+                        cityName = cityName + ", " + adr.getAdminArea() + ", " + adr.getCountryName();
+                        break;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return cityName;
+    }
+
+    private void whenClickLocation() {
+        imageViewLocationUpdate.setOnClickListener(v -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1000);
+            } else {
+                LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+                Location Location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                try {
+                    String city = hereLocation(Location.getLatitude(), Location.getLongitude());
+                    Destination.setText(city);
+                } catch (Exception e) {
+                    Toast.makeText(this, "Please turn on your location", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void checkCredentials() {

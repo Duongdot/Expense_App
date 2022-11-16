@@ -84,17 +84,16 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textTripDestinationLayout"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="24dp"
-            android:layout_marginEnd="32dp"
             android:hint="Trip Destination"
             android:textColorHint="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textAmountLayout"
-            app:startIconDrawable="@drawable/ic_baseline_location_on_24">
+            app:startIconDrawable="@drawable/ic_baseline_location_on_24"
+            android:layout_marginLeft="32dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ExpenseDestination"
@@ -163,6 +162,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textExpenseNoteLayout" />
+
+        <ImageView
+            android:id="@+id/imageViewLocation"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="36dp"
+            app:layout_constraintBottom_toTopOf="@+id/layoutDateFrom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.291"
+            app:layout_constraintStart_toEndOf="@+id/textTripDestinationLayout"
+            app:layout_constraintTop_toBottomOf="@+id/textAmountLayout"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/ic_baseline_my_location_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
