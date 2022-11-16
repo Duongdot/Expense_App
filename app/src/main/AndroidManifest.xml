@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
         android:enableOnBackInvokedCallback="true"
@@ -23,7 +26,8 @@
         <activity
             android:name="com.Duong.Expense.ExpenseActivity.ExpenseShowJsonActivity"
             android:exported="false"
-            android:label="Expense List" >
+            android:label="Expense List"
+            >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -50,7 +54,8 @@
         <activity
             android:name="com.Duong.Expense.TripActivity.TripActivity"
             android:exported="true"
-            android:label="M-expense" >
+            android:label="M-expense"
+            android:foregroundServiceType="location">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
 <!--                <action android:name="android.intent.action.VIEW" />-->
