@@ -3,6 +3,7 @@ package com.Duong.Expense.TripActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -87,8 +88,14 @@ public class TripActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1){
+
+        if (requestCode == 1) {
             recreate();
+        }
+        if(requestCode == 100 && resultCode == RESULT_OK){
+            String voice = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS).get(0);
+            searchView.setQuery(voice, false);
+            searchView.clearFocus();
         }
     }
 
@@ -116,9 +123,21 @@ public class TripActivity extends AppCompatActivity {
             confirmDialog();
         }if (item.getItemId() == R.id.Logout){
             confirmDialogOut();
+        }if (item.getItemId() == R.id.Voice) {
+            Voice();
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private void Voice() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Start Speaking");
+        startActivityForResult(intent, 100);
+    }
+
+
+
 
     private void confirmDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
