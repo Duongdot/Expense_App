@@ -35,6 +35,7 @@
         <activity
             android:name="com.Duong.Expense.ExpenseActivity.Add_Expense_Activity"
             android:exported="true"
+            android:foregroundServiceType="location"
             android:parentActivityName="com.Duong.Expense.ExpenseActivity.ExpenseActivity" />
         <activity
             android:name="com.Duong.Expense.ExpenseActivity.ExpenseActivity"
@@ -55,7 +56,7 @@
             android:name="com.Duong.Expense.TripActivity.TripActivity"
             android:exported="true"
             android:label="M-expense"
-            android:foregroundServiceType="location">
+            >
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
 <!--                <action android:name="android.intent.action.VIEW" />-->
