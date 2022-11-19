@@ -31,7 +31,7 @@ public class ExpenseShowJsonActivity extends AppCompatActivity {
 
         showJson.setText(SaveList.get(0));
     }
-
+    // Read file
     public ArrayList<String> readFile(String file) {
         ArrayList<String> text = new ArrayList<>();
         try {

@@ -49,7 +49,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         dropAndRecreate(db);
     }
-
+    // Create table
     @Override
     public void onCreate(SQLiteDatabase db) {
         createTables(db);
@@ -98,7 +98,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_DATE_TO, trip.getDateTo());
         values.put(COLUMN_RISK, trip.getRisk());
         values.put(COLUMN_DESC, trip.getDesc());
-
         // Inserting Row
         insertId = db.insert(TABLE_NAME, null, values);
         db.close(); // Closing database connection

@@ -1,13 +1,11 @@
 package com.Duong.Expense.TripActivity;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -20,7 +18,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.Duong.Expense.Database.MyDatabaseHelper;
-import com.Duong.Expense.Object.Expense;
 import com.Duong.Expense.Object.Trip;
 import com.Duong.Expense.R;
 
@@ -32,7 +29,7 @@ import java.util.Locale;
 public class AddActivity extends AppCompatActivity {
 
     EditText Trip_input, Destination_input, DateFrom_input, DateTo_input, desc_input;
-    Button add_button, add_button_popup, cancel_button_popup;
+    Button add_button;
     Calendar calendar;
     RadioGroup radioGroup;
     RadioButton selectedRadioButton;
@@ -43,7 +40,6 @@ public class AddActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
-
         Trip_input = findViewById(R.id.TripName);
         Destination_input = findViewById(R.id.TripDestination);
         desc_input = findViewById(R.id.TripDescription);
@@ -52,11 +48,9 @@ public class AddActivity extends AppCompatActivity {
         add_button = findViewById(R.id.add_button);
 
         add_button.setOnClickListener(v -> checkCredentials());
-
-
         calendar = Calendar.getInstance();
 
-        //Date Picker for EditText Date From
+        //DateFrom
         DatePickerDialog.OnDateSetListener datePickerFrom = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -72,8 +66,7 @@ public class AddActivity extends AppCompatActivity {
                 DateFrom_input.setText(sdf.format(calendar.getTime()));
             }
         };
-
-        //Date Picker for EditText Date To
+        //DateTo
         DatePickerDialog.OnDateSetListener datePickerTo = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -82,20 +75,18 @@ public class AddActivity extends AppCompatActivity {
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 updateCalendar();
             }
-
+            //update calendar
             private void updateCalendar() {
                 String format = "dd MMM yyyy";
                 SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.US);
                 DateTo_input.setText(sdf.format(calendar.getTime()));
             }
         };
-
         //setOnClickListener to show date picker
         DateFrom_input.setOnClickListener(view -> new DatePickerDialog(AddActivity.this, datePickerFrom, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show());
         DateTo_input.setOnClickListener(view -> new DatePickerDialog(AddActivity.this, datePickerTo, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show());
-
     }
-
+    //check if the input is empty
     private void checkCredentials() {
         String tripName = Trip_input.getText().toString().trim();
         String location = Destination_input.getText().toString().trim();
@@ -123,7 +114,7 @@ public class AddActivity extends AppCompatActivity {
             CheckConfirm();
         }
     }
-
+    //show confirm message
     private void CheckConfirm() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         String tripName = Trip_input.getText().toString().trim();
@@ -140,25 +131,17 @@ public class AddActivity extends AppCompatActivity {
         builder.setMessage("Trip name: " + tripName +
                 "\n Trip Destination: " + location + "\n Trip Date Start : " + dateF +
                 "\n Trip Date End: " + dateT + "\n Trip Risk : " + risk + "\n Trip Note : " + Description);
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                addTrip();
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-            }
+        builder.setPositiveButton("Yes", (dialogInterface, i) -> addTrip());
+        builder.setNegativeButton("Cancel", (dialogInterface, i) -> {
         });
         builder.create().show();
     }
-
+    //show error message
     private void showErrorDate(EditText dateTo_input) {
         dateTo_input.setError("Date invalid");
         dateTo_input.requestFocus();
     }
-
+    //add trip to database
     private void addTrip() {
         MyDatabaseHelper myDB = new MyDatabaseHelper(AddActivity.this);
 

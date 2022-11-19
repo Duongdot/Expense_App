@@ -89,7 +89,6 @@ public class UpdateExpenseActivity extends AppCompatActivity {
         };
 
         dateInput.setOnClickListener(view -> new DatePickerDialog(UpdateExpenseActivity.this, date, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show());
-
         //Dropdown type expense
         typeExpenseList = getResources().getStringArray(R.array.typeExpense);
         adapter = new ArrayAdapter<>(
@@ -125,7 +124,7 @@ public class UpdateExpenseActivity extends AppCompatActivity {
                 break;
         }
     }
-
+    //Get location
     private String hereLocation(double latitude, double longitude) {
         String cityName = "";
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
@@ -146,7 +145,7 @@ public class UpdateExpenseActivity extends AppCompatActivity {
         }
         return cityName;
     }
-
+    //When click location icon
     private void whenClickLocation() {
         imageViewLocationUpdate.setOnClickListener(v -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

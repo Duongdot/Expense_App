@@ -2,7 +2,6 @@ package com.Duong.Expense.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -26,12 +25,7 @@ public class LoginActivity extends AppCompatActivity {
         EditPassword = findViewById(R.id.Password);
         btnLogin = findViewById(R.id.buttonLogin);
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkCredentials();
-            }
-        });
+        btnLogin.setOnClickListener(v -> checkCredentials());
     }
     private void checkCredentials() {
         String username = EditUserName.getText().toString().trim();
@@ -47,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void Login() {
-        if (EditUserName.getText().toString().equals("admin")&& EditPassword.getText().toString().equals("admin")){
+        if (EditUserName.getText().toString().equals("employee")&& EditPassword.getText().toString().equals("employee")){
             Toast.makeText(LoginActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(LoginActivity.this, TripActivity.class);
             startActivity(intent);

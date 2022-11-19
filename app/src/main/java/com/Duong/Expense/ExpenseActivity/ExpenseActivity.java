@@ -84,7 +84,7 @@ public class ExpenseActivity extends AppCompatActivity {
         expenseAdapter = new ExpenseAdapter(ExpenseActivity.this, this, expenses);
         recyclerView.setAdapter(expenseAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(ExpenseActivity.this));
-
+        //add expense
         btnAdd = findViewById(R.id.Floating_Add_button_Expense);
         btnAdd.setOnClickListener(view -> {
             Intent intents = new Intent(ExpenseActivity.this, Add_Expense_Activity.class);
@@ -110,7 +110,7 @@ public class ExpenseActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
+    //download file
     private void JsonDownload (int id) throws IOException {
         SaveList = myDB.DownloadFile(id);
         if (saveFile(FileName, SaveList)){
@@ -120,7 +120,7 @@ public class ExpenseActivity extends AppCompatActivity {
             Toast.makeText(this, "Error saving file", Toast.LENGTH_SHORT).show();
         }
     }
-
+    //save file
     public boolean saveFile(String file, ArrayList<String> text) {
         try {
             FileOutputStream fos = openFileOutput(file, Context.MODE_PRIVATE);
@@ -134,9 +134,8 @@ public class ExpenseActivity extends AppCompatActivity {
             return false;
         }
     }
-
+    //get details
     private void getDetails() {
-
         tripName.setText(selectedTrip.getName());
         destination.setText(selectedTrip.getDes());
         dateFrom.setText(selectedTrip.getDateFrom());

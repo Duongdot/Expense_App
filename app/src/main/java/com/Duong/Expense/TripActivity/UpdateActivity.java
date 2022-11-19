@@ -29,7 +29,7 @@ public class UpdateActivity extends AppCompatActivity {
     Trip selectedTrip;
     RadioGroup radioGroup;
     RadioButton rdYes, rdNo, selectedRadioButton;
-    Button btnSave, btnCancel;
+    Button btnSave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +84,7 @@ public class UpdateActivity extends AppCompatActivity {
         };
         dateFrom.setOnClickListener(view -> new DatePickerDialog(UpdateActivity.this, datePickerFrom, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show());
         dateTo.setOnClickListener(view -> new DatePickerDialog(UpdateActivity.this, datePickerTo, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show());
-
+        //save button
         btnSave.setOnClickListener(view -> {
             MyDatabaseHelper myDB = new MyDatabaseHelper(this);
 
@@ -104,19 +104,15 @@ public class UpdateActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), "Failed", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(getBaseContext(), "Update Successfully!", Toast.LENGTH_SHORT).show();
-//                startActivity(new Intent(UpdateActivity.this, TripActivity.class));
-//                overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
                 onBackPressed();
                 finishActivity(1);
             }
         });
-
     }
-
+    //get and display info
     private void getAndDisplayInfo() {
         Intent intent = getIntent();
         selectedTrip = (Trip) intent.getSerializableExtra("selectedTrip");
-
         //display in textview
         tripName.setText(selectedTrip.getName());
         tripDestination.setText(selectedTrip.getDes());

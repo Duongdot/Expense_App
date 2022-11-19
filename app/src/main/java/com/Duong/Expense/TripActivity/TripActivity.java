@@ -44,7 +44,6 @@ public class TripActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip);
-
         searchView = findViewById(R.id.searchView);
         recyclerView = findViewById(R.id.recyclerView);
         add_button = findViewById(R.id.Floating_Add_button);
@@ -58,7 +57,7 @@ public class TripActivity extends AppCompatActivity {
             }
 
         });
-
+        //search
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -81,8 +80,6 @@ public class TripActivity extends AppCompatActivity {
         tripAdapter = new TripAdapter(TripActivity.this,this, trips);
         recyclerView.setAdapter(tripAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(TripActivity.this));
-
-
     }
 
     @Override
@@ -109,14 +106,14 @@ public class TripActivity extends AppCompatActivity {
             no_data.setVisibility(View.GONE);
         }
     }
-
+    //menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.my_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
+    //item menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.delete_all){
@@ -135,9 +132,6 @@ public class TripActivity extends AppCompatActivity {
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Start Speaking");
         startActivityForResult(intent, 100);
     }
-
-
-
 
     private void confirmDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
